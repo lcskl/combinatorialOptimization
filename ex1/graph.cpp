@@ -55,7 +55,7 @@ Graph Graph::build_graph(const std::string & filename)
    {
       throw std::runtime_error("Unexpected format of input file.");
    }
-
+   
    Graph graph(num_nodes);
    while (std::getline(ifs, line))
    {
