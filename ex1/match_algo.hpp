@@ -12,6 +12,8 @@
 #include <set>
 #include <memory>
 #include <iostream>
+#include <map>
+#include <stack>
 
 /*
     The Edge class is a simple wrapper for a pair of node id's.
@@ -70,6 +72,7 @@ namespace AT{ //Alternating Tree
         struct Node {
             ED::NodeId _graph_node_id; //NodeId (Label) in the underlying graph
             std::vector<std::shared_ptr<Node>> _children;
+            std::shared_ptr<Node> _parent;
 
             Parity _par;
 
@@ -81,16 +84,31 @@ namespace AT{ //Alternating Tree
         std::shared_ptr<Node> _root;
         std::vector<bool> _in_tree;
 
+        //-------------------------  This is the abstraction from G' -> Graph after shrinkings ---------------------------------
+        std::map<ED::NodeId,std::stack<ED::NodeId>> _label; //Label history for each vertex
+        std::vector< std::vector<ED::NodeId> > _edges; //This will be updated after shrinkings! The idea is to leave the original graph intact.
+        //----------------------------------------------------------------------------------------------------------------------
 
-        Tree(ED::NodeId id, int num_nodes_in_graph){
+        Tree(ED::NodeId id, const ED::Graph& g){
             std::shared_ptr<Node> root = std::make_shared<Node>();
             root->_par = even;
             root->_graph_node_id = id;
+            root->_parent = nullptr; //Convention (It could be itself) - In traversals, remember to check parent! 
+
+            unsigned int num_nodes_in_graph = g.num_nodes();
 
             _root = root;
             _in_tree.resize(num_nodes_in_graph,false);
             _in_tree[id] = true;
-            
+
+            _edges.resize(num_nodes_in_graph);
+
+            for(ED::NodeId x = 0; x < num_nodes_in_graph ; x++){
+                _label[x].push(x); //Every vertex is labeled as its original id
+                for(auto neighbor : g.node(x).neighbors()){
+                    _edges[x].push_back(neighbor); //Sort of initializing G' as G
+                }
+            }
         }
         /**
          * Add a node as children of some already inserted node.
@@ -128,6 +146,14 @@ namespace AT{ //Alternating Tree
          * @return Reference to the node (nullptr if not exists)
          */
         std::shared_ptr<Node> find_node(ED::NodeId x);
+
+        /**
+         * Shrink Odd cycle through vertices x and y
+
+         * @param x Label (NodeID) in {x,y}
+         * @param y Label (NodeID) in {x,y}
+         */
+        void shrink(ED::NodeId x,ED::NodeId y);
 
         void print();
     };

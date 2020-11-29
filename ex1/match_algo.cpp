@@ -4,6 +4,8 @@
 #include "graph.hpp" 
 #include <iostream>
 #include <stack>
+#include <queue>
+#include <algorithm>
 
 void Matching::add_edge(Edge e){
     _edges.insert(e);
@@ -68,8 +70,12 @@ std::shared_ptr<AT::Tree::Node> AT::Tree::add_leaf(std::shared_ptr<Node> parent,
     std::shared_ptr<Node> new_node = std::make_shared<Node>();
     new_node->_graph_node_id = id;
     new_node->_par = static_cast<Parity>((parent->_par+1) % 2);
+    new_node->_parent = parent;
     std::cerr << "adding as leaf\n";
     parent->_children.push_back( new_node );
+
+    _in_tree[id] = true;
+
     return new_node;
 }
 
@@ -126,13 +132,18 @@ void AT::Tree::extend(ED::NodeId x, ED::NodeId y, std::vector<Edge>& e, const ED
         auto current = S.top(); S.pop();
         if(current->_par == odd && M._is_covered[current->_graph_node_id] != -1 && find_node(M._is_covered[current->_graph_node_id])==nullptr){
             S.push(add_leaf(current,M._is_covered[current->_graph_node_id]));
-        }else{
+        }else if(current->_par == even){
             for(auto neigh_id : g.node(current->_graph_node_id).neighbors()){
-                if(find_node(neigh_id)==nullptr){
+                auto neigh_in_tree = find_node(neigh_id);
+                if(neigh_in_tree==nullptr){
                     if(M._is_covered[neigh_id] != -1)
                         S.push(add_leaf(current,neigh_id));
                     else 
                         e.push_back( Edge(current->_graph_node_id,neigh_id) );
+                }else{
+                    if(neigh_in_tree->_par == even){
+                        e.push_back( Edge(current->_graph_node_id,neigh_id) ); //Cycle of odd length found!
+                    }
                 }
             }
         }
@@ -141,14 +152,41 @@ void AT::Tree::extend(ED::NodeId x, ED::NodeId y, std::vector<Edge>& e, const ED
     print();
 }
 
+void AT::Tree::shrink(ED::NodeId x,ED::NodeId y){
+    std::cerr << "Shrinking through {" << x << "," << y << "}\n";
+    auto x_in_tree = find_node(x);
+    auto y_in_tree = find_node(y);
 
+    std::vector<std::shared_ptr<Node>> x_root_path;
+    auto current = x_in_tree;
+    do{
+        x_root_path.push_back(current);
+        current = current->_parent;
+    }while(current->_parent != nullptr);
+
+    std::vector<std::shared_ptr<Node>> y_root_path;
+    current = y_in_tree;
+    do{
+        y_root_path.push_back(current);
+        if(std::find(x_root_path.begin(),x_root_path.end(),current) != x_root_path.end()){
+            auto it = std::find(x_root_path.begin(),x_root_path.end(),current);
+            x_root_path.resize(it-x_root_path.begin()+1);
+        }
+    }while(current->_parent != nullptr); 
+
+    std::cerr << "Finding cycle: ";
+    for(auto x : x_root_path) std::cerr << x->_graph_node_id << " ";
+    std::cerr << " | ";
+    for(auto x : y_root_path) std::cerr << x->_graph_node_id << " ";
+    std::cerr << " \n ";
+}
 
 Matching bipartite_perfect_matching(ED::Graph g){
     std::cerr << "Starting on graph with n= " << g.num_nodes() <<  std::endl;
 
     Matching M(g.num_nodes());
     ED::NodeId first = 0;
-    AT::Tree* T = new AT::Tree(first,g.num_nodes()); //Start with first vertex in node list
+    AT::Tree* T = new AT::Tree(first,g); //Start with first vertex in node list
     std::vector<Edge> aug_edges;
 
     for(auto neigh : g.node(first).neighbors()){
@@ -163,7 +201,7 @@ Matching bipartite_perfect_matching(ED::Graph g){
 
         std::cerr << "Current: " << current_edge._x << "--" <<  current_edge._y << std::endl;
         
-        if( M._is_covered[Y] == -1){ // y is M-Exposed
+        if(T->_in_tree[Y]==false && M._is_covered[Y] == -1){ // y is not in Tree and is M-Exposed
             T->augment(&M , X, Y);
             if(2*M.cardinality() == g.num_nodes()){
                 return M;
@@ -176,7 +214,7 @@ Matching bipartite_perfect_matching(ED::Graph g){
                     }
                 } 
                 std::cerr << "New Tree Starting at: " << first << std::endl;
-                T = new AT::Tree(first,g.num_nodes());
+                T = new AT::Tree(first,g);
                 T->print(); 
                 aug_edges.clear();
                 for(auto neigh : g.node(first).neighbors()){
@@ -184,7 +222,12 @@ Matching bipartite_perfect_matching(ED::Graph g){
                 }
             }
         }else{
-            T->extend(X,Y,aug_edges,g,M);
+            if(T->_in_tree[Y] == false){
+                T->extend(X,Y,aug_edges,g,M);
+            }else{
+                T->shrink(X,Y);
+                break;
+            }
         }
     }
     return M;
