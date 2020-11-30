@@ -49,6 +49,29 @@ void AT::Tree::print(){
     std::cerr << "\n ##################################################\n";
 }
 
+void AT::Tree::print_G_prime(){
+    
+    std::cerr << "-------------------- G PRIME -----------------------\n";
+
+    for(auto const& x : _label){
+        std::cerr << x.first << " : ";
+        for(auto l : x.second)
+            std::cerr << l << ", ";
+        std::cerr << " <-\n"; 
+    }
+    std::cerr << "-------------------- LABEL / EDGES ----------------\n";
+    for(ED::NodeId x = 0 ; x < _edges.size(); x++){
+        if(_label[x].back() == x){
+            std::cerr << x << " : ";
+            for(auto neigh : _edges[x]){
+                std::cerr << neigh << ", ";
+            }
+            std::cerr << "\n";
+        }
+    }
+    std::cerr << "---------------------------------------------------\n";
+}
+
 std::shared_ptr<AT::Tree::Node> AT::Tree::find_node(ED::NodeId x){
     std::stack<std::shared_ptr<AT::Tree::Node>> S;
     S.push(_root);
@@ -121,7 +144,7 @@ void AT::Tree::augment(Matching* M, ED::NodeId x,ED::NodeId y){
     
 }
 
-void AT::Tree::extend(ED::NodeId x, ED::NodeId y, std::vector<Edge>& e, const ED::Graph& g, const Matching& M){
+void AT::Tree::extend(ED::NodeId x, ED::NodeId y, std::vector<Edge>& e, const Matching& M){
     std::cerr << "Extend tree through: " << x << "--" <<  y <<std::endl;
     auto x_in_tree = find_node(x);
     auto y_in_tree = add_leaf(x_in_tree,y);
@@ -133,7 +156,7 @@ void AT::Tree::extend(ED::NodeId x, ED::NodeId y, std::vector<Edge>& e, const ED
         if(current->_par == odd && M._is_covered[current->_graph_node_id] != -1 && find_node(M._is_covered[current->_graph_node_id])==nullptr){
             S.push(add_leaf(current,M._is_covered[current->_graph_node_id]));
         }else if(current->_par == even){
-            for(auto neigh_id : g.node(current->_graph_node_id).neighbors()){
+            for(auto neigh_id : _edges[current->_graph_node_id]){
                 auto neigh_in_tree = find_node(neigh_id);
                 if(neigh_in_tree==nullptr){
                     if(M._is_covered[neigh_id] != -1)
@@ -152,8 +175,9 @@ void AT::Tree::extend(ED::NodeId x, ED::NodeId y, std::vector<Edge>& e, const ED
     print();
 }
 
-void AT::Tree::shrink(ED::NodeId x,ED::NodeId y){
+void AT::Tree::shrink(ED::NodeId x,ED::NodeId y, std::vector<Edge>& e){
     std::cerr << "Shrinking through {" << x << "," << y << "}\n";
+
     auto x_in_tree = find_node(x);
     auto y_in_tree = find_node(y);
 
@@ -171,14 +195,80 @@ void AT::Tree::shrink(ED::NodeId x,ED::NodeId y){
         if(std::find(x_root_path.begin(),x_root_path.end(),current) != x_root_path.end()){
             auto it = std::find(x_root_path.begin(),x_root_path.end(),current);
             x_root_path.resize(it-x_root_path.begin()+1);
+            break;
         }
     }while(current->_parent != nullptr); 
 
-    std::cerr << "Finding cycle: ";
-    for(auto x : x_root_path) std::cerr << x->_graph_node_id << " ";
-    std::cerr << " | ";
-    for(auto x : y_root_path) std::cerr << x->_graph_node_id << " ";
-    std::cerr << " \n ";
+    std::vector<std::shared_ptr<Node>> cycle;
+    for(auto x : x_root_path) cycle.push_back(x);
+    for(auto y : y_root_path) cycle.push_back(y);
+    auto representative = cycle.back();
+    auto cycle_label = representative->_graph_node_id;
+
+    std::cerr << "Found the cycle: ";
+    for(auto v_cycle : cycle){
+        std::cerr << v_cycle->_graph_node_id << ", ";
+        if(_label[v_cycle->_graph_node_id].back() != cycle_label){
+            auto label_to_change = _label[v_cycle->_graph_node_id].back();
+            for(auto& x : _label){
+                if(x.second.back() == label_to_change)
+                    x.second.push_back(cycle_label);
+            }
+        }
+    } 
+    std::cerr << " \nRepresentative: " << cycle_label << "\n";
+
+    for(auto v : cycle){
+        if(v == representative){
+            auto it = _edges[cycle_label].begin();
+            while(it != _edges[cycle_label].end()){
+                auto neigh = *it;
+                if(_label[neigh].back() == cycle_label)
+                    _edges[cycle_label].erase(it);
+                else 
+                    ++it;
+            }
+        }else{
+            for(auto neighbor : _edges[v->_graph_node_id]){
+                if(_label[neighbor].back() == neighbor && _label[neighbor].back() != cycle_label && 
+                std::find(_edges[cycle_label].begin(),_edges[cycle_label].end(),neighbor)==_edges[cycle_label].end()){
+                    _edges[cycle_label].push_back(neighbor);
+                    std::replace(_edges[neighbor].begin(),_edges[neighbor].end(),v->_graph_node_id,cycle_label);
+
+                    if(!_in_tree[neighbor] || find_node(neighbor)->_par == even){
+                        e.push_back(Edge(cycle_label,neighbor));
+                    }
+                }
+            }
+        }
+
+        
+    }
+
+    print_G_prime();
+
+    update_tree(representative,representative);
+
+    print();
+}
+
+void AT::Tree::update_tree(std::shared_ptr<Node> repr,std::shared_ptr<Node> current){
+    auto it = current->_children.begin();
+    while( it != current->_children.end()){
+        auto child = *it;
+        if(_label[child->_graph_node_id].back() == repr->_graph_node_id){
+            update_tree(repr,child);
+            _in_tree[child->_graph_node_id] = false;
+            current->_children.erase(it);
+        }else{
+            if(current != repr){
+                child->_parent = repr;
+                child->_par = static_cast<Parity>((repr->_par+1) % 2);
+                repr->_children.push_back(child);
+            }
+            ++it;
+        } 
+    }
 }
 
 Matching bipartite_perfect_matching(ED::Graph g){
@@ -201,6 +291,11 @@ Matching bipartite_perfect_matching(ED::Graph g){
 
         std::cerr << "Current: " << current_edge._x << "--" <<  current_edge._y << std::endl;
         
+        if(T->_label[X].back() != X || T->_label[Y].back() != Y){ 
+            std::cerr << "One of the vertices shrunk!\n";
+            continue;
+        }
+
         if(T->_in_tree[Y]==false && M._is_covered[Y] == -1){ // y is not in Tree and is M-Exposed
             T->augment(&M , X, Y);
             if(2*M.cardinality() == g.num_nodes()){
@@ -217,16 +312,15 @@ Matching bipartite_perfect_matching(ED::Graph g){
                 T = new AT::Tree(first,g);
                 T->print(); 
                 aug_edges.clear();
-                for(auto neigh : g.node(first).neighbors()){
+                for(auto neigh : T->_edges[first]){
                     aug_edges.push_back( Edge(first,neigh) );
                 }
             }
         }else{
             if(T->_in_tree[Y] == false){
-                T->extend(X,Y,aug_edges,g,M);
+                T->extend(X,Y,aug_edges,M);
             }else{
-                T->shrink(X,Y);
-                break;
+                T->shrink(X,Y,aug_edges);
             }
         }
     }

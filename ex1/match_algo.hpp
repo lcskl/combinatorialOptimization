@@ -85,7 +85,7 @@ namespace AT{ //Alternating Tree
         std::vector<bool> _in_tree;
 
         //-------------------------  This is the abstraction from G' -> Graph after shrinkings ---------------------------------
-        std::map<ED::NodeId,std::stack<ED::NodeId>> _label; //Label history for each vertex
+        std::map<ED::NodeId,std::vector<ED::NodeId>> _label; //Label history for each vertex
         std::vector< std::vector<ED::NodeId> > _edges; //This will be updated after shrinkings! The idea is to leave the original graph intact.
         //----------------------------------------------------------------------------------------------------------------------
 
@@ -104,7 +104,7 @@ namespace AT{ //Alternating Tree
             _edges.resize(num_nodes_in_graph);
 
             for(ED::NodeId x = 0; x < num_nodes_in_graph ; x++){
-                _label[x].push(x); //Every vertex is labeled as its original id
+                _label[x].push_back(x); //Every vertex is labeled as its original id
                 for(auto neighbor : g.node(x).neighbors()){
                     _edges[x].push_back(neighbor); //Sort of initializing G' as G
                 }
@@ -134,10 +134,9 @@ namespace AT{ //Alternating Tree
          * @param x Label (NodeID) in {x,y}.
          * @param y Label (NodeID) in {x,y}.
          * @param e List of edges to be tested in the main loop of matching algorithm
-         * @param g Underlying Graph - It needs the neighborhood not in the Tree
          * @param M Matching
          */
-        void extend(ED::NodeId x, ED::NodeId y, std::vector<Edge>& e, const ED::Graph& g, const Matching& M);
+        void extend(ED::NodeId x, ED::NodeId y, std::vector<Edge>& e, const Matching& M);
 
         /**
          * Find node in try by its id (label)
@@ -153,9 +152,19 @@ namespace AT{ //Alternating Tree
          * @param x Label (NodeID) in {x,y}
          * @param y Label (NodeID) in {x,y}
          */
-        void shrink(ED::NodeId x,ED::NodeId y);
+        void shrink(ED::NodeId x,ED::NodeId y, std::vector<Edge>& e);
+
+        /**
+         * 
+
+         * @param x Label (NodeID) in {x,y}
+         * @param y Label (NodeID) in {x,y}
+         */
+        void update_tree(std::shared_ptr<Node> repr,std::shared_ptr<Node> current);
 
         void print();
+
+        void print_G_prime();
     };
 
 }
