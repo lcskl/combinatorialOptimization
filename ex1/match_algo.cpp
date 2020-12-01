@@ -8,15 +8,13 @@
 #include <algorithm>
 
 void Matching::add_edge(Edge e){
-    _edges.insert(e);
+    _size += _edges.insert(e).second;
     _is_covered[e._x] = e._y;
     _is_covered[e._y] = e._x;
-    _size++;
 }
 
 void Matching::remove_edge(Edge e){
-    _size--;
-    _edges.erase(e);
+    _size -= _edges.erase(e);
 }
 
 unsigned int Matching::cardinality(){
@@ -175,8 +173,52 @@ void AT::Tree::extend(ED::NodeId x, ED::NodeId y, std::vector<Edge>& e, const Ma
     print();
 }
 
-void AT::Tree::shrink(ED::NodeId x,ED::NodeId y, std::vector<Edge>& e){
+Matching AT::Tree::unshrink(Matching M){
+    std::cerr << "Unshrinking!\n";
+    Matching M_prime = M;
+    int aux = 0;
+    while(!_shrinkings.empty()){
+        std::cerr << "Step " << aux++ << std::endl;
+        auto cycle = _shrinkings.back(); _shrinkings.pop_back();
+        Edge x;
+        ED::NodeId endpoint;
+        for(auto edge : M_prime._edges){
+            if(edge._x == cycle.cycle_id || edge._y == cycle.cycle_id){
+                x = edge;
+                endpoint = (edge._x == cycle.cycle_id) ? edge._y : edge._x;
+                break;
+            }
+        }
+
+        ED::NodeId start = cycle.cycle_id;
+        for(auto e : cycle.redirect_edges){
+            if(e.second == x){
+                M_prime.remove_edge(x);
+                M_prime.add_edge(e.first);
+                start = (e.first._x == endpoint) ? (e.first._y) : (e.first._x); 
+            }
+        }
+
+        auto init = std::find(cycle.shrunken_nodes.begin(),cycle.shrunken_nodes.end(),start) - cycle.shrunken_nodes.begin() + 1;
+        for ( std::vector<ED::NodeId>::size_type i = 0; i < cycle.shrunken_nodes.size(); i+=2 )
+        {
+            if(cycle.shrunken_nodes[(init + i) % cycle.shrunken_nodes.size()]     == start || 
+               cycle.shrunken_nodes[(init + i + 1) % cycle.shrunken_nodes.size()] == start)break;
+            M_prime.add_edge( Edge(cycle.shrunken_nodes[(init + i) % cycle.shrunken_nodes.size()],
+                                        cycle.shrunken_nodes[(init + i + 1) % cycle.shrunken_nodes.size()]));
+        }
+        M_prime.print();
+    }
+
+    return M_prime;
+}
+
+void AT::Tree::shrink(ED::NodeId x,ED::NodeId y, std::vector<Edge>& e, Matching &M){
     std::cerr << "Shrinking through {" << x << "," << y << "}\n";
+
+    Cycle new_cycle;
+
+    M.print();
 
     auto x_in_tree = find_node(x);
     auto y_in_tree = find_node(y);
@@ -205,9 +247,13 @@ void AT::Tree::shrink(ED::NodeId x,ED::NodeId y, std::vector<Edge>& e){
     auto representative = cycle.back();
     auto cycle_label = representative->_graph_node_id;
 
+    new_cycle.cycle_id = cycle_label;
+
     std::cerr << "Found the cycle: ";
     for(auto v_cycle : cycle){
         std::cerr << v_cycle->_graph_node_id << ", ";
+        new_cycle.shrunken_nodes.push_back(v_cycle->_graph_node_id);
+
         if(_label[v_cycle->_graph_node_id].back() != cycle_label){
             auto label_to_change = _label[v_cycle->_graph_node_id].back();
             for(auto& x : _label){
@@ -218,14 +264,20 @@ void AT::Tree::shrink(ED::NodeId x,ED::NodeId y, std::vector<Edge>& e){
     } 
     std::cerr << " \nRepresentative: " << cycle_label << "\n";
 
+    
+     
+
+    //Redirecting the edges from the cycle to the outside
+
     for(auto v : cycle){
         if(v == representative){
             auto it = _edges[cycle_label].begin();
             while(it != _edges[cycle_label].end()){
                 auto neigh = *it;
-                if(_label[neigh].back() == cycle_label)
+                if(_label[neigh].back() == cycle_label){
+                    M.remove_edge( Edge(cycle_label,neigh));
                     _edges[cycle_label].erase(it);
-                else 
+                }else 
                     ++it;
             }
         }else{
@@ -235,21 +287,26 @@ void AT::Tree::shrink(ED::NodeId x,ED::NodeId y, std::vector<Edge>& e){
                     _edges[cycle_label].push_back(neighbor);
                     std::replace(_edges[neighbor].begin(),_edges[neighbor].end(),v->_graph_node_id,cycle_label);
 
+                    new_cycle.redirect_edges.push_back(std::make_pair(Edge(v->_graph_node_id,neighbor),Edge(cycle_label,neighbor)));
+
                     if(!_in_tree[neighbor] || find_node(neighbor)->_par == even){
                         e.push_back(Edge(cycle_label,neighbor));
                     }
+                }else if(_label[neighbor].back() != neighbor && _label[neighbor].back() == cycle_label){
+                    M.remove_edge( Edge(v->_graph_node_id,neighbor) );
                 }
             }
         }
-
-        
     }
+    _shrinkings.push_back(new_cycle);
 
     print_G_prime();
 
     update_tree(representative,representative);
 
     print();
+
+    M.print();
 }
 
 void AT::Tree::update_tree(std::shared_ptr<Node> repr,std::shared_ptr<Node> current){
@@ -269,6 +326,15 @@ void AT::Tree::update_tree(std::shared_ptr<Node> repr,std::shared_ptr<Node> curr
             ++it;
         } 
     }
+}
+
+unsigned int AT::Tree::active_nodes(){
+    unsigned int count = 0;
+    for(unsigned int i = 0; i < _in_tree.size() ; i++){
+        if(_label[i].back() == i)
+            count++;
+    }
+    return count;
 }
 
 Matching bipartite_perfect_matching(ED::Graph g){
@@ -298,10 +364,14 @@ Matching bipartite_perfect_matching(ED::Graph g){
 
         if(T->_in_tree[Y]==false && M._is_covered[Y] == -1){ // y is not in Tree and is M-Exposed
             T->augment(&M , X, Y);
-            if(2*M.cardinality() == g.num_nodes()){
-                return M;
+
+            auto M_prime = T->unshrink(M);
+
+            if(2*M.cardinality() == T->active_nodes()){
+                return M_prime;
             }else{
                 delete T;
+                M = M_prime;
                 for(ED::NodeId i=0;i<g.num_nodes();i++){
                     if(M._is_covered[i] == -1){
                         first = i;
@@ -320,7 +390,7 @@ Matching bipartite_perfect_matching(ED::Graph g){
             if(T->_in_tree[Y] == false){
                 T->extend(X,Y,aug_edges,M);
             }else{
-                T->shrink(X,Y,aug_edges);
+                T->shrink(X,Y,aug_edges,M);
             }
         }
     }

@@ -35,6 +35,9 @@ struct Edge{
 
         return (min1_y < min2_y);
     };
+    bool operator ==(const Edge& a) const{
+        return (this->_x == a._x && this->_y == a._y) || (this->_y == a._x && this->_x == a._y);
+    };
 };
 
 /*
@@ -84,9 +87,18 @@ namespace AT{ //Alternating Tree
         std::shared_ptr<Node> _root;
         std::vector<bool> _in_tree;
 
+        struct Cycle {
+            ED::NodeId cycle_id;
+            std::vector<ED::NodeId> shrunken_nodes;
+            std::vector<std::pair<Edge,Edge>> redirect_edges;
+        };
+
+        std::vector<Cycle> _shrinkings;
+
         //-------------------------  This is the abstraction from G' -> Graph after shrinkings ---------------------------------
         std::map<ED::NodeId,std::vector<ED::NodeId>> _label; //Label history for each vertex
         std::vector< std::vector<ED::NodeId> > _edges; //This will be updated after shrinkings! The idea is to leave the original graph intact.
+
         //----------------------------------------------------------------------------------------------------------------------
 
         Tree(ED::NodeId id, const ED::Graph& g){
@@ -152,7 +164,7 @@ namespace AT{ //Alternating Tree
          * @param x Label (NodeID) in {x,y}
          * @param y Label (NodeID) in {x,y}
          */
-        void shrink(ED::NodeId x,ED::NodeId y, std::vector<Edge>& e);
+        void shrink(ED::NodeId x,ED::NodeId y, std::vector<Edge>& e, Matching &M);
 
         /**
          * 
@@ -161,6 +173,16 @@ namespace AT{ //Alternating Tree
          * @param y Label (NodeID) in {x,y}
          */
         void update_tree(std::shared_ptr<Node> repr,std::shared_ptr<Node> current);
+
+        /**
+         * Undo the cycle shrinkings
+         * 
+         * @param M Matching of the end graph G'(shrinked) 
+         * @return Matching M' obtained by unshrinking M
+         */
+        Matching unshrink(Matching M);
+
+        unsigned int active_nodes();
 
         void print();
 
