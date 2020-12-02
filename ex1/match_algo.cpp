@@ -22,11 +22,11 @@ unsigned int Matching::cardinality(){
 }
 
 void Matching::print(){
-    std::cout << "Number of edges: " << _size << "- " << _edges.size() << std::endl;
+    std::cout << "=+=+= Matching =+=+= \nNumber of edges: " << _size  << std::endl;
     for(auto e : _edges){
-        std::cout << e._x << "--" << e._y << std::endl;
+        std::cout << e._x+1 << "--" << e._y+1 << std::endl;
     }
-    std::cout << std::endl;
+    std::cout << "=+=+==+=+==+=+==+=+=" <<std::endl;
 }
 
 void AT::Tree::print(){
@@ -37,12 +37,12 @@ void AT::Tree::print(){
     while(!S.empty()){
         auto current = S.top(); S.pop();
         if(current == nullptr) std::cerr << "Null pointer\n";
-        std::cerr << "Current: " << current->_graph_node_id <<  " ";
+        std::cerr << "Current: " << current->_graph_node_id+1 << " P:" << ((current->_par == even)?'E':'O') <<  " Ch: ";
         for(auto&& i : current->_children){
-            std::cerr << "Ch: " << i->_graph_node_id <<  " ";
+            std::cerr << " " << i->_graph_node_id+1 <<  ", ";
             S.push(i);
-            std::cerr << "\n";
         }
+        std::cerr << "\n";
     }
     std::cerr << "\n ##################################################\n";
 }
@@ -52,17 +52,17 @@ void AT::Tree::print_G_prime(){
     std::cerr << "-------------------- G PRIME -----------------------\n";
 
     for(auto const& x : _label){
-        std::cerr << x.first << " : ";
+        std::cerr << x.first+1 << " : ";
         for(auto l : x.second)
-            std::cerr << l << ", ";
+            std::cerr << l+1 << ", ";
         std::cerr << " <-\n"; 
     }
     std::cerr << "-------------------- LABEL / EDGES ----------------\n";
     for(ED::NodeId x = 0 ; x < _edges.size(); x++){
         if(_label[x].back() == x){
-            std::cerr << x << " : ";
+            std::cerr << x+1 << " : ";
             for(auto neigh : _edges[x]){
-                std::cerr << neigh << ", ";
+                std::cerr << neigh+1 << ", ";
             }
             std::cerr << "\n";
         }
@@ -71,6 +71,13 @@ void AT::Tree::print_G_prime(){
 }
 
 std::shared_ptr<AT::Tree::Node> AT::Tree::find_node(ED::NodeId x){
+
+    if(_in_tree[x]){
+        return _node_table[x];
+    }else{
+        return nullptr;
+    }
+    /*
     std::stack<std::shared_ptr<AT::Tree::Node>> S;
     S.push(_root);
     while(!S.empty()){
@@ -84,6 +91,7 @@ std::shared_ptr<AT::Tree::Node> AT::Tree::find_node(ED::NodeId x){
             S.push(i);
     }
     return nullptr;
+    */
 }
 
 std::shared_ptr<AT::Tree::Node> AT::Tree::add_leaf(std::shared_ptr<Node> parent, ED::NodeId id){
@@ -92,73 +100,68 @@ std::shared_ptr<AT::Tree::Node> AT::Tree::add_leaf(std::shared_ptr<Node> parent,
     new_node->_graph_node_id = id;
     new_node->_par = static_cast<Parity>((parent->_par+1) % 2);
     new_node->_parent = parent;
-    std::cerr << "adding as leaf\n";
+
     parent->_children.push_back( new_node );
 
     _in_tree[id] = true;
+    _node_table[id] = new_node;
 
     return new_node;
 }
-
+/*
+    augment:
+    Add the edge {x,y} to augment.
+    Find a 'root <- x' path and alternatingly add and
+    remove edges from the matching (alternating path)
+*/
 void AT::Tree::augment(Matching* M, ED::NodeId x,ED::NodeId y){
     std::cerr << "Augmenting\n";
 
-    std::stack<std::shared_ptr<AT::Tree::Node>> S;
-    std::vector<ED::NodeId> parent(_in_tree.size());
-
-    parent[_root->_graph_node_id] = _root->_graph_node_id;
-
-    S.push(_root);
-    while(!S.empty()){
-        auto current = S.top(); S.pop();
-
-        std::cerr << current->_graph_node_id << std::endl;
-
-        if(current->_graph_node_id == x){
-            break;
-        }
-
-        for(auto&& i : current->_children){
-            S.push(i);
-            parent[i->_graph_node_id] = current->_graph_node_id;
-        }
-    }
-    
     M->add_edge( Edge(x,y) );
     bool even = true;
-    while(parent[x] != x){
+    auto x_in_tree = find_node(x);
+    while(x_in_tree->_parent != nullptr){
         if(even){
-            std::cerr << "Removing: " << parent[x] << "---" << x << std::endl;
-            M->remove_edge( Edge(parent[x],x) );
+            //std::cerr << "Removing: " << parent[x] << "---" << x << std::endl;
+            M->remove_edge( Edge(x_in_tree->_parent->_graph_node_id,x_in_tree->_graph_node_id) );
         }else{
             
-            std::cerr << "Adding: " << parent[x] << "---" << x << std::endl;
-            M->add_edge( Edge(parent[x],x) );
+            //std::cerr << "Adding: " << parent[x] << "---" << x << std::endl;
+            M->add_edge( Edge(x_in_tree->_parent->_graph_node_id,x_in_tree->_graph_node_id) );
         }
-        x = parent[x];
+        x_in_tree = x_in_tree->_parent;
         even = !even;
-        M->print();
+        //M->print();
     }
     
 }
-
+/*
+    extend:
+    Traverse the graph in a iterative DFS manner. 
+    Add necessary nodes to the tree and add edges of interest
+    to the main edge list vector<Edge> e.
+*/
 void AT::Tree::extend(ED::NodeId x, ED::NodeId y, std::vector<Edge>& e, const Matching& M){
-    std::cerr << "Extend tree through: " << x << "--" <<  y <<std::endl;
+    std::cerr << "Extend tree through: " << x+1 << "--" <<  y+1 <<std::endl;
     auto x_in_tree = find_node(x);
-    auto y_in_tree = add_leaf(x_in_tree,y);
 
-    std::stack<std::shared_ptr<AT::Tree::Node>> S;
-    S.push(y_in_tree);
+    std::stack<std::pair<std::shared_ptr<Node>,ED::NodeId>> S;
+    S.push(std::make_pair(x_in_tree,y));
     while(!S.empty()){
-        auto current = S.top(); S.pop();
+        auto top = S.top(); S.pop();
+
+        if(find_node(top.second) != nullptr)
+            continue;
+        auto current = add_leaf(top.first,top.second);
+
         if(current->_par == odd && M._is_covered[current->_graph_node_id] != -1 && find_node(M._is_covered[current->_graph_node_id])==nullptr){
-            S.push(add_leaf(current,M._is_covered[current->_graph_node_id]));
+            S.push(std::make_pair(current,M._is_covered[current->_graph_node_id]));
         }else if(current->_par == even){
             for(auto neigh_id : _edges[current->_graph_node_id]){
                 auto neigh_in_tree = find_node(neigh_id);
                 if(neigh_in_tree==nullptr){
                     if(M._is_covered[neigh_id] != -1)
-                        S.push(add_leaf(current,neigh_id));
+                        S.push(std::make_pair(current,neigh_id));
                     else 
                         e.push_back( Edge(current->_graph_node_id,neigh_id) );
                 }else{
@@ -170,11 +173,16 @@ void AT::Tree::extend(ED::NodeId x, ED::NodeId y, std::vector<Edge>& e, const Ma
         }
     }
 
-    print();
+    //print();
 }
 
+/*
+    unshrink:
+    Goes through all the odd shrunken odd cycles
+    and add the respective edges to the matching  
+*/
 Matching AT::Tree::unshrink(Matching M){
-    std::cerr << "Unshrinking!\n";
+    std::cerr << "Unshrinking\n";
     Matching M_prime = M;
     int aux = 0;
     while(!_shrinkings.empty()){
@@ -183,7 +191,7 @@ Matching AT::Tree::unshrink(Matching M){
         Edge x;
         ED::NodeId endpoint;
         for(auto edge : M_prime._edges){
-            if(edge._x == cycle.cycle_id || edge._y == cycle.cycle_id){
+            if(edge._x == cycle.cycle_id || edge._y == cycle.cycle_id){ //get the edge in the matching whose endpoint is a pseudonode
                 x = edge;
                 endpoint = (edge._x == cycle.cycle_id) ? edge._y : edge._x;
                 break;
@@ -191,6 +199,8 @@ Matching AT::Tree::unshrink(Matching M){
         }
 
         ED::NodeId start = cycle.cycle_id;
+        //If the current edge in the matching was in fact a redirection from a shrunken vertex, include this edge to the matching 
+        //(removing the one to the pseudo-node)
         for(auto e : cycle.redirect_edges){
             if(e.second == x){
                 M_prime.remove_edge(x);
@@ -199,6 +209,7 @@ Matching AT::Tree::unshrink(Matching M){
             }
         }
 
+        //One vertex of the cycle is matched. From it iterate circularly and add edges to the matching alternatingly
         auto init = std::find(cycle.shrunken_nodes.begin(),cycle.shrunken_nodes.end(),start) - cycle.shrunken_nodes.begin() + 1;
         for ( std::vector<ED::NodeId>::size_type i = 0; i < cycle.shrunken_nodes.size(); i+=2 )
         {
@@ -207,14 +218,19 @@ Matching AT::Tree::unshrink(Matching M){
             M_prime.add_edge( Edge(cycle.shrunken_nodes[(init + i) % cycle.shrunken_nodes.size()],
                                         cycle.shrunken_nodes[(init + i + 1) % cycle.shrunken_nodes.size()]));
         }
-        M_prime.print();
+        //M_prime.print();
     }
+    std::cerr << "Unshrinking done\n";
 
     return M_prime;
 }
 
+/*
+    shrink:
+    Transforms the cycle in one edge (from G' perspective)  
+*/
 void AT::Tree::shrink(ED::NodeId x,ED::NodeId y, std::vector<Edge>& e, Matching &M){
-    std::cerr << "Shrinking through {" << x << "," << y << "}\n";
+    std::cerr << "Shrinking through {" << x+1 << "," << y+1 << "}\n";
 
     Cycle new_cycle;
 
@@ -222,38 +238,49 @@ void AT::Tree::shrink(ED::NodeId x,ED::NodeId y, std::vector<Edge>& e, Matching 
 
     auto x_in_tree = find_node(x);
     auto y_in_tree = find_node(y);
-
+    //Find a x-root path
     std::vector<std::shared_ptr<Node>> x_root_path;
     auto current = x_in_tree;
     do{
         x_root_path.push_back(current);
         current = current->_parent;
-    }while(current->_parent != nullptr);
+    }while(current != nullptr);
 
+    //Find a y-root path BUT stops when it finds an intersection with 
+    //the x-root path. After all, this will be the cycle representative (pseudonode)
     std::vector<std::shared_ptr<Node>> y_root_path;
     current = y_in_tree;
     do{
-        y_root_path.push_back(current);
         if(std::find(x_root_path.begin(),x_root_path.end(),current) != x_root_path.end()){
             auto it = std::find(x_root_path.begin(),x_root_path.end(),current);
             x_root_path.resize(it-x_root_path.begin()+1);
             break;
+        }else{
+            y_root_path.push_back(current);
         }
-    }while(current->_parent != nullptr); 
+        current = current->_parent;
+    }while(current != nullptr); 
 
+    //Just getting the vertices of the cycle and the representative
     std::vector<std::shared_ptr<Node>> cycle;
     for(auto x : x_root_path) cycle.push_back(x);
-    for(auto y : y_root_path) cycle.push_back(y);
     auto representative = cycle.back();
+    for(auto y : y_root_path) cycle.push_back(y);
     auto cycle_label = representative->_graph_node_id;
 
     new_cycle.cycle_id = cycle_label;
 
     std::cerr << "Found the cycle: ";
     for(auto v_cycle : cycle){
-        std::cerr << v_cycle->_graph_node_id << ", ";
+        std::cerr << v_cycle->_graph_node_id+1 << ", ";
         new_cycle.shrunken_nodes.push_back(v_cycle->_graph_node_id);
 
+        /*
+            POSSIBLE TO OPTIMIZE?
+            We actually do not need the history of the labels (?).
+            This implementation uses the saved cycles
+            Just the last one is ok (we do not need to relabel the vertices) (?)
+        */
         if(_label[v_cycle->_graph_node_id].back() != cycle_label){
             auto label_to_change = _label[v_cycle->_graph_node_id].back();
             for(auto& x : _label){
@@ -262,10 +289,7 @@ void AT::Tree::shrink(ED::NodeId x,ED::NodeId y, std::vector<Edge>& e, Matching 
             }
         }
     } 
-    std::cerr << " \nRepresentative: " << cycle_label << "\n";
-
-    
-     
+    std::cerr << " \nRepresentative: " << cycle_label+1 << "\n";
 
     //Redirecting the edges from the cycle to the outside
 
@@ -273,10 +297,11 @@ void AT::Tree::shrink(ED::NodeId x,ED::NodeId y, std::vector<Edge>& e, Matching 
         if(v == representative){
             auto it = _edges[cycle_label].begin();
             while(it != _edges[cycle_label].end()){
+                //std::cerr << "Removing edges from representative\n";
                 auto neigh = *it;
                 if(_label[neigh].back() == cycle_label){
                     M.remove_edge( Edge(cycle_label,neigh));
-                    _edges[cycle_label].erase(it);
+                    it = _edges[cycle_label].erase(it);
                 }else 
                     ++it;
             }
@@ -292,39 +317,55 @@ void AT::Tree::shrink(ED::NodeId x,ED::NodeId y, std::vector<Edge>& e, Matching 
                     if(!_in_tree[neighbor] || find_node(neighbor)->_par == even){
                         e.push_back(Edge(cycle_label,neighbor));
                     }
+
                 }else if(_label[neighbor].back() != neighbor && _label[neighbor].back() == cycle_label){
                     M.remove_edge( Edge(v->_graph_node_id,neighbor) );
                 }
             }
         }
     }
+
     _shrinkings.push_back(new_cycle);
 
-    print_G_prime();
+    //print_G_prime();
 
-    update_tree(representative,representative);
+    update_tree(cycle,cycle_label);
 
-    print();
+    //print();
 
-    M.print();
+    //M.print();
 }
 
-void AT::Tree::update_tree(std::shared_ptr<Node> repr,std::shared_ptr<Node> current){
-    auto it = current->_children.begin();
-    while( it != current->_children.end()){
-        auto child = *it;
-        if(_label[child->_graph_node_id].back() == repr->_graph_node_id){
-            update_tree(repr,child);
-            _in_tree[child->_graph_node_id] = false;
-            current->_children.erase(it);
-        }else{
-            if(current != repr){
-                child->_parent = repr;
-                child->_par = static_cast<Parity>((repr->_par+1) % 2);
-                repr->_children.push_back(child);
+void AT::Tree::update_tree(std::vector<std::shared_ptr<Node>> cycle, ED::NodeId cycle_label){
+    std::cerr << "Update Tree\n";
+    
+    auto rep = find_node(cycle_label);
+    for(auto node : cycle){
+        //For all cycle nodes apart from representative, redirect all outside children to representative
+        if(node->_graph_node_id != cycle_label){
+            for(auto child : node->_children){
+                if(_label[child->_graph_node_id].back() != cycle_label){
+                    child->_parent = rep;
+                    child->_par = static_cast<Parity>((rep->_par+1) % 2);
+                    rep->_children.push_back(child);
+                }else{
+                    child->_parent = nullptr; //Break circular dependency
+                }
             }
+        }
+    }
+    
+    //For representative of the cycle - remove all children that are in cycle (this nodes do not exist from here on)
+    auto it = rep->_children.begin();
+    while( it != rep->_children.end()){
+        auto child = *it;
+        if(_label[child->_graph_node_id].back() == cycle_label){
+            _in_tree[child->_graph_node_id] = false;
+            _node_table[child->_graph_node_id] = nullptr;
+            it = rep->_children.erase(it);
+        }else{
             ++it;
-        } 
+        }
     }
 }
 
@@ -337,7 +378,7 @@ unsigned int AT::Tree::active_nodes(){
     return count;
 }
 
-Matching bipartite_perfect_matching(ED::Graph g){
+Matching perfect_matching(ED::Graph g){
     std::cerr << "Starting on graph with n= " << g.num_nodes() <<  std::endl;
 
     Matching M(g.num_nodes());
@@ -355,7 +396,7 @@ Matching bipartite_perfect_matching(ED::Graph g){
         auto X = current_edge._x;
         auto Y = current_edge._y;
 
-        std::cerr << "Current: " << current_edge._x << "--" <<  current_edge._y << std::endl;
+        std::cerr << "Current Edge in Main Loop: " << current_edge._x+1 << "--" <<  current_edge._y+1 << std::endl;
         
         if(T->_label[X].back() != X || T->_label[Y].back() != Y){ 
             std::cerr << "One of the vertices shrunk!\n";
@@ -364,36 +405,37 @@ Matching bipartite_perfect_matching(ED::Graph g){
 
         if(T->_in_tree[Y]==false && M._is_covered[Y] == -1){ // y is not in Tree and is M-Exposed
             T->augment(&M , X, Y);
-
             auto M_prime = T->unshrink(M);
-
-            if(2*M.cardinality() == T->active_nodes()){
+            if(2*M_prime.cardinality() == g.num_nodes()){
+                M_prime._perfect = true;
                 return M_prime;
             }else{
                 delete T;
                 M = M_prime;
+                first = -1;
                 for(ED::NodeId i=0;i<g.num_nodes();i++){
                     if(M._is_covered[i] == -1){
                         first = i;
                         break;
                     }
                 } 
-                std::cerr << "New Tree Starting at: " << first << std::endl;
-                T = new AT::Tree(first,g);
-                T->print(); 
+
+                std::cerr << "New Tree Starting at: " << first+1 << std::endl;
+                T = new AT::Tree(first,g); 
                 aug_edges.clear();
                 for(auto neigh : T->_edges[first]){
                     aug_edges.push_back( Edge(first,neigh) );
                 }
             }
         }else{
-            if(T->_in_tree[Y] == false){
+            if(T->_in_tree[Y] == false && M._is_covered[Y] != -1){
                 T->extend(X,Y,aug_edges,M);
-            }else{
+            }else if(T->find_node(Y)->_par == AT::even){
                 T->shrink(X,Y,aug_edges,M);
             }
         }
     }
+    M._perfect = false;
     return M;
 }
 

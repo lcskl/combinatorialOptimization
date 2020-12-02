@@ -47,7 +47,7 @@ class Matching{
     public:
     std::vector<int> _is_covered; //Contains the matching pair (-1 if not convered by this matching)
     std::set<Edge> _edges;
-
+    bool _perfect = false;
 
     Matching(int num_nodes){
         _size = 0;
@@ -79,26 +79,26 @@ namespace AT{ //Alternating Tree
 
             Parity _par;
 
-            Node() {}
+            /*Node() {}
             ~Node(){
                 std::cerr << "Deleting " << _graph_node_id << std::endl;
             }
+            */
         };
         std::shared_ptr<Node> _root;
         std::vector<bool> _in_tree;
+        std::vector<std::shared_ptr<Node>>_node_table; //mapping between node id's and its node structure in the tree
 
+        //-------------------------  This is the abstraction from G' -> Graph after shrinkings ---------------------------------
         struct Cycle {
             ED::NodeId cycle_id;
             std::vector<ED::NodeId> shrunken_nodes;
             std::vector<std::pair<Edge,Edge>> redirect_edges;
         };
-
-        std::vector<Cycle> _shrinkings;
-
-        //-------------------------  This is the abstraction from G' -> Graph after shrinkings ---------------------------------
+        
         std::map<ED::NodeId,std::vector<ED::NodeId>> _label; //Label history for each vertex
         std::vector< std::vector<ED::NodeId> > _edges; //This will be updated after shrinkings! The idea is to leave the original graph intact.
-
+        std::vector<Cycle> _shrinkings;
         //----------------------------------------------------------------------------------------------------------------------
 
         Tree(ED::NodeId id, const ED::Graph& g){
@@ -114,6 +114,8 @@ namespace AT{ //Alternating Tree
             _in_tree[id] = true;
 
             _edges.resize(num_nodes_in_graph);
+            _node_table.resize(num_nodes_in_graph);
+            _node_table[id] = _root; 
 
             for(ED::NodeId x = 0; x < num_nodes_in_graph ; x++){
                 _label[x].push_back(x); //Every vertex is labeled as its original id
@@ -167,12 +169,12 @@ namespace AT{ //Alternating Tree
         void shrink(ED::NodeId x,ED::NodeId y, std::vector<Edge>& e, Matching &M);
 
         /**
-         * 
-
-         * @param x Label (NodeID) in {x,y}
-         * @param y Label (NodeID) in {x,y}
+         * Updates the current tree to be consistent with cycle shrinkings
+         * Redirects outgoing children to the cycle representative and removes all vertices
+         * of the cycle but the representative off the tree. 
+         * @param cycle_label Label (NodeID) of representative of a cycle
          */
-        void update_tree(std::shared_ptr<Node> repr,std::shared_ptr<Node> current);
+        void update_tree(std::vector<std::shared_ptr<Node>> cycle, ED::NodeId cycle_label);
 
         /**
          * Undo the cycle shrinkings
@@ -191,7 +193,7 @@ namespace AT{ //Alternating Tree
 
 }
 
-Matching bipartite_perfect_matching(ED::Graph g);
+Matching perfect_matching(ED::Graph g);
 
 
 #endif /* MATCH_ALGO_HPP */
