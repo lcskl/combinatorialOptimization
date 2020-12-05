@@ -7,6 +7,7 @@
 
 int main(int argc, char** argv)
 {
+   std::ios_base::sync_with_stdio(false);
    if (argc != 2)
    {
       std::cerr << "Wrong number of arguments. Program call: <program_name> <input_graph>" << std::endl;
@@ -14,8 +15,10 @@ int main(int argc, char** argv)
    }
 
    ED::Graph graph = ED::Graph::build_graph(argv[1]);
-   Matching M = bipartite_perfect_matching(graph);
+   Matching M = max_matching(graph, argv[1]);
+
    M.print();
-   std::cout << graph;
+   std::cout << "Cardinality " << M.cardinality() << std::endl;
+
    return EXIT_SUCCESS;
 }
