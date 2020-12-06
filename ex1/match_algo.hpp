@@ -54,7 +54,7 @@ class Matching{
         _is_covered.resize(num_nodes,-1);
     }
 
-    void print();
+    void print(int n);
 
     void add_edge(Edge e);
     void remove_edge(Edge e);
@@ -96,7 +96,7 @@ namespace AT{ //Alternating Tree
             std::vector<std::pair<Edge,Edge>> redirect_edges;
         };
 
-        std::map<ED::NodeId,std::vector<ED::NodeId>> _label; //Label history for each vertex
+        std::vector<ED::NodeId> _label; //Label history for each vertex
         std::vector< std::vector<ED::NodeId> > _edges; //This will be updated after shrinkings! The idea is to leave the original graph intact.
         std::vector<Cycle> _shrinkings;
         //----------------------------------------------------------------------------------------------------------------------
@@ -116,14 +116,30 @@ namespace AT{ //Alternating Tree
             _edges.resize(num_nodes_in_graph);
             _node_table.resize(num_nodes_in_graph);
             _node_table[id] = _root;
+            _label.resize(num_nodes_in_graph);
 
             for(ED::NodeId x = 0; x < num_nodes_in_graph ; x++){
-                _label[x].push_back(x); //Every vertex is labeled as its original id
-                for(auto neighbor : g.node(x).neighbors()){
+                _label[x] = x; //Every vertex is labeled as its original id
+                _edges[x] = g.node(x).neighbors();
+                /*for(auto neighbor : g.node(x).neighbors()){
                     _edges[x].push_back(neighbor); //Sort of initializing G' as G
                 }
+                */
             }
         }
+
+        ~Tree(){
+            std::stack<std::shared_ptr<Node>> S;
+            S.push(_root);
+            while(!S.empty()){
+                auto current = S.top(); S.pop();
+                current->_parent = nullptr;
+                for(auto ch : current->_children)
+                    S.push(ch);
+            }
+            _root = nullptr;
+        }
+
         /**
          * Add a node as children of some already inserted node.
          *
@@ -174,7 +190,7 @@ namespace AT{ //Alternating Tree
          * of the cycle but the representative off the tree.
          * @param cycle_label Label (NodeID) of representative of a cycle
          */
-        void update_tree(std::vector<std::shared_ptr<Node>> cycle, ED::NodeId cycle_label);
+        void update_tree(const std::vector<std::shared_ptr<Node>>& cycle, ED::NodeId cycle_label);
 
         /**
          * Undo the cycle shrinkings

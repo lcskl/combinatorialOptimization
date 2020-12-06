@@ -1,5 +1,6 @@
 #include <iostream>
 #include <cstdlib>
+#include <chrono>
 
 #include "graph.hpp"
 #include "match_algo.hpp"
@@ -17,8 +18,8 @@ int main(int argc, char** argv)
    ED::Graph graph = ED::Graph::build_graph(argv[1]);
    Matching M = max_matching(graph, argv[1]);
 
-   M.print();
-   std::cout << "Cardinality " << M.cardinality() << std::endl;
+   M.print(graph.num_nodes());
+   //std::cout << "Cardinality " << M.cardinality() << std::endl;
 
    return EXIT_SUCCESS;
 }
