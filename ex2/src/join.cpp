@@ -1,14 +1,46 @@
 #include "join.hpp"
 #include "utils.hpp"
+#include "../blossom5-v2.05.src/PerfectMatching.h"
 #include <iostream>
 #include <map>
 #include <cmath>
 
+std::vector<std::pair<NodeId,NodeId>> perfect_matching(const Graph & graph){
+    PerfectMatching solver{
+            static_cast<int>(graph.num_nodes()),
+            static_cast<int>(graph.num_edges())};
+
+    for (EdgeId edge_id{0}; edge_id < graph.num_edges(); ++edge_id)
+    {
+        solver.AddEdge(
+                graph.halfedge(2*edge_id + 1).target(),
+                graph.halfedge(2*edge_id + 0).target(),
+                graph.edge_weight(edge_id));
+    }
+
+    solver.Solve();
+
+    std::vector<std::pair<NodeId,NodeId>> matching;
+    
+    for (EdgeId edge_id{0}; edge_id < graph.num_edges(); ++edge_id)
+    {
+    if (solver.GetSolution(edge_id))
+        {
+            matching.push_back(std::make_pair(graph.halfedge(2*edge_id + 1).target(),
+                                              graph.halfedge(2*edge_id + 0).target()));
+        }
+    }
+    return matching;
+}
+
 void minimum_weight_empty_join(const Graph & G){
     //This implementation is based on Theorems 51 and 52 of the lecture notes 
+    //It computes a minimum empty join with real valued edge weights
+    //According to Theorem 52, it suffices to calculate a V^- Join in G_d (weight function d(e) := |c(e)| )
 
+    auto G_d = copy_abs_weight(G); //Copy of the original graph with with weight function d(e) := |c(e)| 
     auto T = G.odd_v_minus(); // Get V^-
-    auto conn_comps = connected_components(G,T); //Components spanned by V^- with weight function d(e) := |c(e)| 
+    auto conn_comps = connected_components(G_d,T); //Components spanned by V^- 
 
     std::cout << " Components of G(T):\n";
     for(auto comp : conn_comps){
@@ -16,6 +48,12 @@ void minimum_weight_empty_join(const Graph & G){
         for(NodeId x = 0; x < comp.second.size(); x++){
             std::cout << x << " -> " << comp.second[x] << std::endl; 
         }
+
+        auto perf_match = perfect_matching(comp.first);
+        for(auto edge : perf_match){
+            std::cout << edge.first << "--" << edge.second << "\n";
+        }
+        std::cout << std::endl;
     }
 }
 
@@ -55,8 +93,7 @@ std::vector< std::pair<Graph,std::vector<NodeId>> > connected_components(const G
                 auto neighbor = G.halfedge(half_edge_id).target();
                 if(visited[neighbor] == visited[conn_comp_vertex_set[u]] &&
                  conn_comp_id[neighbor] > u){ // we test conn_comp_id[neighbor] > u to make sure we are not doubling the edges
-                     //REMEMBER: d(e) := |c(e)|
-                     component.add_edge(u,conn_comp_id[neighbor], abs(G.halfedge_weight(half_edge_id)) );
+                     component.add_edge(u,conn_comp_id[neighbor], G.halfedge_weight(half_edge_id) );
                  }
             }
         }

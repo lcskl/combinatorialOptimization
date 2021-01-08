@@ -23,3 +23,23 @@ RUN:
   Example:
      ./bin/minimum-mean-cycle ./instances/K1024.dimacs  
 
+Files:
+    utils.hpp / utils.cpp:
+        Functions that do not directly relate to either the T-join or the Minimum Mean Weight Cycle algo
+
+        - dfs: given a visited array, it stamps every reachable vertex with a given value using a depth first search
+        - copy_abs_weight: copies a graph taking the absolute values of the edge weights
+        - dijkstra: simple implementation of Dijkstra's Algorithm (with Priority Queues and, therefore, lazy deletions)
+
+    join.hpp / join.cpp:
+        Methods for calculating the minimum weight empty join
+
+        - minimum_weight_empty_join: implementing the minimum weight T-join for T = empty
+        - connected_components: Given a subset of vertices T, it returns a list of 'Graph' objects with the connected components of G(T) (graph spanned by those vertices). 
+        - perfect_matching: wrapper to the perfect matching solver in blossom5-v2.05.src 
+
+    graph.hpp / graph.cpp 
+        Mods:
+
+        Added:
+        - odd_v_minus: returns list of vertices with odd degree w.r.t negative edges.
