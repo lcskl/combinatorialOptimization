@@ -157,10 +157,7 @@ std::ostream & operator<<(std::ostream & output, Graph const & graph)
 {
    // We use std::endl to write new lines here.
    // If you prefer the new line character, \n on linux, that one works fine, too.
-   output << "c Recall each line starting with c encodes a graph in DIMACS format!" << std::endl
-          << "c The first non-comment line specifies the number of nodes and edges:" << std::endl
-          << "p edge " << graph.num_nodes() << " " << graph.num_edges() << std::endl
-          << "c Each of the remaining non-comment lines specifies a weighted edge by two nodes:" << std::endl;
+   output << "p edge " << graph.num_nodes() << " " << graph.num_edges() << std::endl;
 
    for (EdgeId edge_id{0}; edge_id < graph.num_edges(); ++edge_id)
    {
@@ -169,8 +166,6 @@ std::ostream & operator<<(std::ostream & output, Graph const & graph)
 		     << graph.edge_weight(edge_id) << std::endl;
    }
  
-   output << "c If you use this graph class in your solution, you should probably remove this comments!" << std::endl;
-
    // Streams sometimes buffer their output.
    // Once one is done with some output routine, it can make sense to flush them,
    // which clears the buffer and writes the remaining output.

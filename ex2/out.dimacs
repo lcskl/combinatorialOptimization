@@ -1,7 +1,0 @@
-c Recall each line starting with c encodes a graph in DIMACS format!
-c The first non-comment line specifies the number of nodes and edges:
-p edge 4 2
-c Each of the remaining non-comment lines specifies a weighted edge by two nodes:
-e 1 4 -889
-e 2 3 -301
-c If you use this graph class in your solution, you should probably remove this comments!

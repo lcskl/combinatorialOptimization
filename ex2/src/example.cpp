@@ -3,6 +3,7 @@
 
 #include "graph.hpp"
 #include "join.hpp"
+#include "utils.hpp"
 #include "../blossom5-v2.05.src/PerfectMatching.h"
 
 int main(int argc, char** argv)
@@ -29,8 +30,6 @@ int main(int argc, char** argv)
       return EXIT_FAILURE;
    }
    Graph const graph = Graph::read_dimacs(input_file);
-   
-   minimum_weight_empty_join(graph);
 
    //We are currently checking this to make sure that the graph we call the minimum weight perfect matching
    //solver on possesses a perfect matching.
@@ -49,35 +48,9 @@ int main(int argc, char** argv)
    }
    else
    {
-      PerfectMatching solver{
-	 static_cast<int>(graph.num_nodes()),
-         static_cast<int>(graph.num_edges())};
-      for (EdgeId edge_id{0}; edge_id < graph.num_edges(); ++edge_id)
-      {
-         solver.AddEdge(
-	   graph.halfedge(2*edge_id + 1).target(),
-	   graph.halfedge(2*edge_id + 0).target(),
-	   graph.edge_weight(edge_id));
-      }
- 
-      solver.Solve();
-
-      Graph solution{graph.num_nodes()};
-      for (EdgeId edge_id{0}; edge_id < graph.num_edges(); ++edge_id)
-      {
-        if (solver.GetSolution(edge_id))
-         {
-               solution.add_edge(
-            graph.halfedge(2*edge_id + 1).target(),
-            graph.halfedge(2*edge_id + 0).target(),
-            graph.edge_weight(edge_id));
-         }
-      }
-      output_file << solution;
-
+      minimum_weight_empty_join(graph);
 
       return EXIT_SUCCESS; 
    }
-
 }
 

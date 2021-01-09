@@ -50,10 +50,10 @@ void minimum_weight_empty_join(const Graph & G){
         }
 
         auto perf_match = perfect_matching(comp.first);
-        for(auto edge : perf_match){
-            std::cout << edge.first << "--" << edge.second << "\n";
+        
+        for(auto match_edge : perf_match){
+            std::cout << match_edge.first << " --- " << match_edge.second << std::endl;
         }
-        std::cout << std::endl;
     }
 }
 

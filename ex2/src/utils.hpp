@@ -21,13 +21,20 @@
 void dfs(const MMC::Graph & G,MMC::NodeId vertex, std::vector<int> & visited,int stamp);
 
 /**
- * Dijkstra's Algorthim implementation with STL Priority Queues
+ * Dijkstra's Algorithm implementation with STL Priority Queues
  *
  * @param G Graph whose min. weight paths are to be calculated
  * @param start_node NodeId of the starting node
- * @return Pair of vectors: (Min weight values of start_node -- NodeId paths, Backtracking)
+ * @return Pair of vectors: (Min weight values of start_node -- Sequence of HalfEdgeId's meaning the paths -> backtracking)
  */
-std::pair<std::vector<MMC::EdgeWeight>,std::vector<MMC::NodeId>> dijkstra(const MMC::Graph & G,MMC::NodeId start_node);
+std::pair<std::vector<MMC::EdgeWeight>,std::vector<MMC::HalfEdgeId>> dijkstra(const MMC::Graph & G,MMC::NodeId start_node);
+
+/**
+ * Floyd and Warshall's Algorithm implementation with back-tracking
+ * @param G Graph whose min. weight paths are to be calculated
+ * @return Pair of vectors: (Min weight values matrix in array form -- Matrix (in array form) of last visited vertex in a min path -> backtracking)
+ */
+std::pair<std::vector<MMC::EdgeWeight>,std::vector<MMC::NodeId>> floyd_warshall(const MMC::Graph & G);
 
 /**
  * Simply returns a copy of the graph with absolute valued weights
