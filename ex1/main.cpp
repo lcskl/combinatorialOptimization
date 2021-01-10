@@ -16,6 +16,7 @@ int main(int argc, char** argv)
    }
 
    ED::Graph graph = ED::Graph::build_graph(argv[1]);
+
    Matching M = max_matching(graph, argv[1]);
 
    M.print(graph.num_nodes());

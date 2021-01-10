@@ -139,7 +139,6 @@ namespace AT{ //Alternating Tree
             }
             _root = nullptr;
         }
-
         /**
          * Add a node as children of some already inserted node.
          *
