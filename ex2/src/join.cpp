@@ -42,6 +42,8 @@ void minimum_weight_empty_join(const Graph & G){
     auto T = G.odd_v_minus(); // Get V^-
     auto conn_comps = connected_components(G_d,T); //Components spanned by V^- 
 
+    //Metric-Closure
+
     std::cout << " Components of G(T):\n";
     for(auto comp : conn_comps){
         std::cout << comp.first << std::endl;
@@ -51,10 +53,14 @@ void minimum_weight_empty_join(const Graph & G){
 
         auto perf_match = perfect_matching(comp.first);
         
+        //Symmetric differences of edges in perf_match of each connected component
+
         for(auto match_edge : perf_match){
             std::cout << match_edge.first << " --- " << match_edge.second << std::endl;
         }
     }
+
+    //Symmetric difference with E-
 }
 
 std::vector< std::pair<Graph,std::vector<NodeId>> > connected_components(const Graph & G, std::vector<NodeId> spanningSet){

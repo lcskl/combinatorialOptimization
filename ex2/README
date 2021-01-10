@@ -43,3 +43,12 @@ Files:
 
         Added:
         - odd_v_minus: returns list of vertices with odd degree w.r.t negative edges.
+
+* Complete T-Join (Empty Join Algorithm) (Lucas): 
+  - Metric Closure (Lucas)
+  - Backtrack to get the actual min x-y-paths (Lucas)
+  - Symmetric Differences (x-y-paths and J with E-) (Lucas)
+* Mean Weight Cycle Algorithm (check last iteration, double for edge weights) (Noah):
+  - Check for cycles (remember dfs with last visited vertex check)
+  - Multiple edges (maybe disregard all but the edge with smallest weight)
+* Brute-force checker for input instances (Noah)
