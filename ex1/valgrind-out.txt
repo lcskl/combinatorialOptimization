@@ -1,0 +1,817 @@
+==926== Memcheck, a memory error detector
+==926== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==926== Using Valgrind-3.15.0-608cb11914-20190413 and LibVEX; rerun with -h for copyright info
+==926== Command: ./matching.out graphs/queen11_11.dmx
+==926== Parent PID: 65
+==926== 
+--926-- 
+--926-- Valgrind options:
+--926--    --leak-check=full
+--926--    --show-leak-kinds=all
+--926--    --track-origins=yes
+--926--    --verbose
+--926--    --log-file=valgrind-out.txt
+--926-- Contents of /proc/version:
+--926--   Linux version 4.4.0-19041-Microsoft (Microsoft@Microsoft.com) (gcc version 5.4.0 (GCC) ) #488-Microsoft Mon Sep 01 13:43:00 PST 2020
+--926-- 
+--926-- Arch and hwcaps: AMD64, LittleEndian, amd64-cx16-lzcnt-rdtscp-sse3-ssse3-avx-avx2-bmi-f16c-rdrand
+--926-- Page sizes: currently 4096, max supported 4096
+--926-- Valgrind library directory: /usr/lib/x86_64-linux-gnu/valgrind
+--926-- Reading syms from /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out
+--926-- Reading syms from /usr/lib/x86_64-linux-gnu/ld-2.31.so
+--926--   Considering /usr/lib/x86_64-linux-gnu/ld-2.31.so ..
+--926--   .. CRC mismatch (computed 6cded93a wanted 1af57820)
+--926--   Considering /lib/x86_64-linux-gnu/ld-2.31.so ..
+--926--   .. CRC mismatch (computed 6cded93a wanted 1af57820)
+--926--   Considering /usr/lib/debug/lib/x86_64-linux-gnu/ld-2.31.so ..
+--926--   .. CRC is valid
+--926-- Reading syms from /usr/lib/x86_64-linux-gnu/valgrind/memcheck-amd64-linux
+--926--    object doesn't have a symbol table
+--926--    object doesn't have a dynamic symbol table
+--926-- Scheduler: using generic scheduler lock implementation.
+--926-- Reading suppressions file: /usr/lib/x86_64-linux-gnu/valgrind/default.supp
+==926== embedded gdbserver: reading from /tmp/vgdb-pipe-from-vgdb-to-926-by-noah-on-???
+==926== embedded gdbserver: writing to   /tmp/vgdb-pipe-to-vgdb-from-926-by-noah-on-???
+==926== embedded gdbserver: shared mem   /tmp/vgdb-pipe-shared-mem-vgdb-926-by-noah-on-???
+==926== 
+==926== TO CONTROL THIS PROCESS USING vgdb (which you probably
+==926== don't want to do, unless you know exactly what you're doing,
+==926== or are doing some strange experiment):
+==926==   /usr/lib/x86_64-linux-gnu/valgrind/../../bin/vgdb --pid=926 ...command...
+==926== 
+==926== TO DEBUG THIS PROCESS USING GDB: start GDB like this
+==926==   /path/to/gdb ./matching.out
+==926== and then give GDB the following command
+==926==   target remote | /usr/lib/x86_64-linux-gnu/valgrind/../../bin/vgdb --pid=926
+==926== --pid is optional if only one valgrind process is running
+==926== 
+==926== error calling PR_SET_PTRACER, vgdb might block
+--926-- REDIR: 0x4022d80 (ld-linux-x86-64.so.2:strlen) redirected to 0x580c9ce2 (???)
+--926-- REDIR: 0x4022b50 (ld-linux-x86-64.so.2:index) redirected to 0x580c9cfc (???)
+--926-- Reading syms from /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_core-amd64-linux.so
+--926--    object doesn't have a symbol table
+--926-- Reading syms from /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so
+--926--    object doesn't have a symbol table
+==926== WARNING: new redirection conflicts with existing -- ignoring it
+--926--     old: 0x04022d80 (strlen              ) R-> (0000.0) 0x580c9ce2 ???
+--926--     new: 0x04022d80 (strlen              ) R-> (2007.0) 0x0483f060 strlen
+--926-- REDIR: 0x401f560 (ld-linux-x86-64.so.2:strcmp) redirected to 0x483ffd0 (strcmp)
+--926-- REDIR: 0x40232e0 (ld-linux-x86-64.so.2:mempcpy) redirected to 0x4843a20 (mempcpy)
+--926-- Reading syms from /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.28
+--926--    object doesn't have a symbol table
+--926-- Reading syms from /usr/lib/x86_64-linux-gnu/libgcc_s.so.1
+--926--    object doesn't have a symbol table
+--926-- Reading syms from /usr/lib/x86_64-linux-gnu/libc-2.31.so
+--926--   Considering /usr/lib/x86_64-linux-gnu/libc-2.31.so ..
+--926--   .. CRC mismatch (computed cd1655d1 wanted 09373696)
+--926--   Considering /lib/x86_64-linux-gnu/libc-2.31.so ..
+--926--   .. CRC mismatch (computed cd1655d1 wanted 09373696)
+--926--   Considering /usr/lib/debug/lib/x86_64-linux-gnu/libc-2.31.so ..
+--926--   .. CRC is valid
+--926-- Reading syms from /usr/lib/x86_64-linux-gnu/libm-2.31.so
+--926--   Considering /usr/lib/x86_64-linux-gnu/libm-2.31.so ..
+--926--   .. CRC mismatch (computed b88da5c9 wanted 1658d783)
+--926--   Considering /lib/x86_64-linux-gnu/libm-2.31.so ..
+--926--   .. CRC mismatch (computed b88da5c9 wanted 1658d783)
+--926--   Considering /usr/lib/debug/lib/x86_64-linux-gnu/libm-2.31.so ..
+--926--   .. CRC is valid
+--926-- REDIR: 0x4af1600 (libc.so.6:memmove) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
+--926-- REDIR: 0x4af0900 (libc.so.6:strncpy) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
+--926-- REDIR: 0x4af1930 (libc.so.6:strcasecmp) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
+--926-- REDIR: 0x4af0220 (libc.so.6:strcat) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
+--926-- REDIR: 0x4af0960 (libc.so.6:rindex) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
+--926-- REDIR: 0x4af2dd0 (libc.so.6:rawmemchr) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
+--926-- REDIR: 0x4b0de60 (libc.so.6:wmemchr) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
+--926-- REDIR: 0x4b0d9a0 (libc.so.6:wcscmp) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
+--926-- REDIR: 0x4af1760 (libc.so.6:mempcpy) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
+--926-- REDIR: 0x4af1590 (libc.so.6:bcmp) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
+--926-- REDIR: 0x4af0890 (libc.so.6:strncmp) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
+--926-- REDIR: 0x4af02d0 (libc.so.6:strcmp) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
+--926-- REDIR: 0x4af16c0 (libc.so.6:memset) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
+--926-- REDIR: 0x4b0d960 (libc.so.6:wcschr) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
+--926-- REDIR: 0x4af07f0 (libc.so.6:strnlen) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
+--926-- REDIR: 0x4af03b0 (libc.so.6:strcspn) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
+--926-- REDIR: 0x4af1980 (libc.so.6:strncasecmp) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
+--926-- REDIR: 0x4af0350 (libc.so.6:strcpy) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
+--926-- REDIR: 0x4af1ad0 (libc.so.6:memcpy@@GLIBC_2.14) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
+--926-- REDIR: 0x4b0f0d0 (libc.so.6:wcsnlen) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
+--926-- REDIR: 0x4b0d9e0 (libc.so.6:wcscpy) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
+--926-- REDIR: 0x4af09a0 (libc.so.6:strpbrk) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
+--926-- REDIR: 0x4af0280 (libc.so.6:index) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
+--926-- REDIR: 0x4af07b0 (libc.so.6:strlen) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
+--926-- REDIR: 0x4af9d20 (libc.so.6:memrchr) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
+--926-- REDIR: 0x4af19d0 (libc.so.6:strcasecmp_l) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
+--926-- REDIR: 0x4af1550 (libc.so.6:memchr) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
+--926-- REDIR: 0x4b0dab0 (libc.so.6:wcslen) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
+--926-- REDIR: 0x4af0c60 (libc.so.6:strspn) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
+--926-- REDIR: 0x4af18d0 (libc.so.6:stpncpy) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
+--926-- REDIR: 0x4af1870 (libc.so.6:stpcpy) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
+--926-- REDIR: 0x4af2e10 (libc.so.6:strchrnul) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
+--926-- REDIR: 0x4af1a20 (libc.so.6:strncasecmp_l) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
+--926-- REDIR: 0x4bd9490 (libc.so.6:__strrchr_avx2) redirected to 0x483ea10 (rindex)
+--926-- REDIR: 0x4aeb260 (libc.so.6:malloc) redirected to 0x483b780 (malloc)
+--926-- REDIR: 0x4bd9660 (libc.so.6:__strlen_avx2) redirected to 0x483ef40 (strlen)
+--926-- REDIR: 0x4bd5c50 (libc.so.6:__memcmp_avx2_movbe) redirected to 0x48421e0 (bcmp)
+--926-- REDIR: 0x4bd4b60 (libc.so.6:__strcmp_avx2) redirected to 0x483fed0 (strcmp)
+--926-- REDIR: 0x48fcc70 (libstdc++.so.6:operator new[](unsigned long)) redirected to 0x483c510 (operator new[](unsigned long))
+--926-- REDIR: 0x48fcc10 (libstdc++.so.6:operator new(unsigned long)) redirected to 0x483bdf0 (operator new(unsigned long))
+--926-- REDIR: 0x4bdc670 (libc.so.6:__memcpy_avx_unaligned_erms) redirected to 0x48429f0 (memmove)
+--926-- REDIR: 0x4af1120 (libc.so.6:__GI_strstr) redirected to 0x4843ca0 (__strstr_sse2)
+--926-- REDIR: 0x4bd54c0 (libc.so.6:__memchr_avx2) redirected to 0x4840050 (memchr)
+--926-- REDIR: 0x48fae60 (libstdc++.so.6:operator delete(void*)) redirected to 0x483cf50 (operator delete(void*))
+--926-- REDIR: 0x48fae90 (libstdc++.so.6:operator delete[](void*)) redirected to 0x483d6e0 (operator delete[](void*))
+--926-- REDIR: 0x4aeb850 (libc.so.6:free) redirected to 0x483c9d0 (free)
+--926-- REDIR: 0x4bdcaf0 (libc.so.6:__memset_avx2_unaligned_erms) redirected to 0x48428e0 (memset)
+--926-- REDIR: 0x48fae70 (libstdc++.so.6:operator delete(void*, unsigned long)) redirected to 0x483d160 (operator delete(void*, unsigned long))
+==926== 
+==926== HEAP SUMMARY:
+==926==     in use at exit: 8,633,440 bytes in 148,245 blocks
+==926==   total heap usage: 2,117,043 allocs, 1,968,798 frees, 503,799,980 bytes allocated
+==926== 
+==926== Searching for pointers to 148,245 not-freed blocks
+==926== Checked 114,816 bytes
+==926== 
+==926== 8 bytes in 1 blocks are indirectly lost in loss record 1 of 57
+==926==    at 0x483BE63: operator new(unsigned long) (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==926==    by 0x10DFFB: __gnu_cxx::new_allocator<unsigned long>::allocate(unsigned long, void const*) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x10DBEC: std::allocator_traits<std::allocator<unsigned long> >::allocate(std::allocator<unsigned long>&, unsigned long) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x10D5B9: std::_Vector_base<unsigned long, std::allocator<unsigned long> >::_M_allocate(unsigned long) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x10CC34: void std::vector<unsigned long, std::allocator<unsigned long> >::_M_realloc_insert<unsigned long const&>(__gnu_cxx::__normal_iterator<unsigned long*, std::vector<unsigned long, std::allocator<unsigned long> > >, unsigned long const&) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x10C655: std::vector<unsigned long, std::allocator<unsigned long> >::push_back(unsigned long const&) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x115D39: AT::Tree::Tree(unsigned long, ED::Graph const&) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x1149D1: perfect_matching(ED::Graph) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x113FC5: max_matching(ED::Graph, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x10EAC3: main (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926== 
+==926== 16 bytes in 1 blocks are indirectly lost in loss record 2 of 57
+==926==    at 0x483BE63: operator new(unsigned long) (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==926==    by 0x10DFFB: __gnu_cxx::new_allocator<unsigned long>::allocate(unsigned long, void const*) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x10DBEC: std::allocator_traits<std::allocator<unsigned long> >::allocate(std::allocator<unsigned long>&, unsigned long) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x120283: std::_Bvector_base<std::allocator<bool> >::_M_allocate(unsigned long) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x11CB42: std::vector<bool, std::allocator<bool> >::_M_fill_insert(std::_Bit_iterator, unsigned long, bool) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x11932F: std::vector<bool, std::allocator<bool> >::insert(std::_Bit_const_iterator, unsigned long, bool const&) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x116B1C: std::vector<bool, std::allocator<bool> >::resize(unsigned long, bool) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x115C73: AT::Tree::Tree(unsigned long, ED::Graph const&) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x1149D1: perfect_matching(ED::Graph) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x113FC5: max_matching(ED::Graph, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x10EAC3: main (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926== 
+==926== 32 bytes in 1 blocks are indirectly lost in loss record 3 of 57
+==926==    at 0x483BE63: operator new(unsigned long) (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==926==    by 0x10DFFB: __gnu_cxx::new_allocator<unsigned long>::allocate(unsigned long, void const*) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x10DBEC: std::allocator_traits<std::allocator<unsigned long> >::allocate(std::allocator<unsigned long>&, unsigned long) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x120283: std::_Bvector_base<std::allocator<bool> >::_M_allocate(unsigned long) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x11CB42: std::vector<bool, std::allocator<bool> >::_M_fill_insert(std::_Bit_iterator, unsigned long, bool) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x11932F: std::vector<bool, std::allocator<bool> >::insert(std::_Bit_const_iterator, unsigned long, bool const&) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x116B1C: std::vector<bool, std::allocator<bool> >::resize(unsigned long, bool) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x115C73: AT::Tree::Tree(unsigned long, ED::Graph const&) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x1149D1: perfect_matching(ED::Graph) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x11444C: max_matching(ED::Graph, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x10EAC3: main (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926== 
+==926== 48 bytes in 6 blocks are indirectly lost in loss record 4 of 57
+==926==    at 0x483BE63: operator new(unsigned long) (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==926==    by 0x10DFFB: __gnu_cxx::new_allocator<unsigned long>::allocate(unsigned long, void const*) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x10DBEC: std::allocator_traits<std::allocator<unsigned long> >::allocate(std::allocator<unsigned long>&, unsigned long) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x10D5B9: std::_Vector_base<unsigned long, std::allocator<unsigned long> >::_M_allocate(unsigned long) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x10CC34: void std::vector<unsigned long, std::allocator<unsigned long> >::_M_realloc_insert<unsigned long const&>(__gnu_cxx::__normal_iterator<unsigned long*, std::vector<unsigned long, std::allocator<unsigned long> > >, unsigned long const&) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x10C655: std::vector<unsigned long, std::allocator<unsigned long> >::push_back(unsigned long const&) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x115D39: AT::Tree::Tree(unsigned long, ED::Graph const&) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x1149D1: perfect_matching(ED::Graph) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x11444C: max_matching(ED::Graph, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x10EAC3: main (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926== 
+==926== 72 bytes in 1 blocks are indirectly lost in loss record 5 of 57
+==926==    at 0x483BE63: operator new(unsigned long) (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==926==    by 0x1261DF: __gnu_cxx::new_allocator<std::_Sp_counted_ptr_inplace<AT::Tree::Node, std::allocator<AT::Tree::Node>, (__gnu_cxx::_Lock_policy)2> >::allocate(unsigned long, void const*) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x1256F8: std::allocator_traits<std::allocator<std::_Sp_counted_ptr_inplace<AT::Tree::Node, std::allocator<AT::Tree::Node>, (__gnu_cxx::_Lock_policy)2> > >::allocate(std::allocator<std::_Sp_counted_ptr_inplace<AT::Tree::Node, std::allocator<AT::Tree::Node>, (__gnu_cxx::_Lock_policy)2> >&, unsigned long) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x1242D5: std::__allocated_ptr<std::allocator<std::_Sp_counted_ptr_inplace<AT::Tree::Node, std::allocator<AT::Tree::Node>, (__gnu_cxx::_Lock_policy)2> > > std::__allocate_guarded<std::allocator<std::_Sp_counted_ptr_inplace<AT::Tree::Node, std::allocator<AT::Tree::Node>, (__gnu_cxx::_Lock_policy)2> > >(std::allocator<std::_Sp_counted_ptr_inplace<AT::Tree::Node, std::allocator<AT::Tree::Node>, (__gnu_cxx::_Lock_policy)2> >&) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x1228FD: std::__shared_count<(__gnu_cxx::_Lock_policy)2>::__shared_count<AT::Tree::Node, std::allocator<AT::Tree::Node>>(AT::Tree::Node*&, std::_Sp_alloc_shared_tag<std::allocator<AT::Tree::Node> >) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x11FF97: std::__shared_ptr<AT::Tree::Node, (__gnu_cxx::_Lock_policy)2>::__shared_ptr<std::allocator<AT::Tree::Node>>(std::_Sp_alloc_shared_tag<std::allocator<AT::Tree::Node> >) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x11C8C8: std::shared_ptr<AT::Tree::Node>::shared_ptr<std::allocator<AT::Tree::Node>>(std::_Sp_alloc_shared_tag<std::allocator<AT::Tree::Node> >) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x1190F5: std::shared_ptr<AT::Tree::Node> std::allocate_shared<AT::Tree::Node, std::allocator<AT::Tree::Node>>(std::allocator<AT::Tree::Node> const&) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x116904: std::shared_ptr<AT::Tree::Node> std::make_shared<AT::Tree::Node>() (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x115BD1: AT::Tree::Tree(unsigned long, ED::Graph const&) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x1149D1: perfect_matching(ED::Graph) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x113FC5: max_matching(ED::Graph, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926== 
+==926== 96 bytes in 3 blocks are indirectly lost in loss record 6 of 57
+==926==    at 0x483BE63: operator new(unsigned long) (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==926==    by 0x122F25: __gnu_cxx::new_allocator<std::shared_ptr<AT::Tree::Node> >::allocate(unsigned long, void const*) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x1205FC: std::allocator_traits<std::allocator<std::shared_ptr<AT::Tree::Node> > >::allocate(std::allocator<std::shared_ptr<AT::Tree::Node> >&, unsigned long) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x11D059: std::_Vector_base<std::shared_ptr<AT::Tree::Node>, std::allocator<std::shared_ptr<AT::Tree::Node> > >::_M_allocate(unsigned long) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x11A2B4: void std::vector<std::shared_ptr<AT::Tree::Node>, std::allocator<std::shared_ptr<AT::Tree::Node> > >::_M_realloc_insert<std::shared_ptr<AT::Tree::Node> const&>(__gnu_cxx::__normal_iterator<std::shared_ptr<AT::Tree::Node>*, std::vector<std::shared_ptr<AT::Tree::Node>, std::allocator<std::shared_ptr<AT::Tree::Node> > > >, std::shared_ptr<AT::Tree::Node> const&) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x117419: std::vector<std::shared_ptr<AT::Tree::Node>, std::allocator<std::shared_ptr<AT::Tree::Node> > >::push_back(std::shared_ptr<AT::Tree::Node> const&) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x113BD2: AT::Tree::update_tree(std::vector<std::shared_ptr<AT::Tree::Node>, std::allocator<std::shared_ptr<AT::Tree::Node> > >, unsigned long) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x113805: AT::Tree::shrink(unsigned long, unsigned long, std::vector<Edge, std::allocator<Edge> >&, Matching&) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x114BE1: perfect_matching(ED::Graph) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x11444C: max_matching(ED::Graph, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x10EAC3: main (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926== 
+==926== 128 bytes in 2 blocks are indirectly lost in loss record 7 of 57
+==926==    at 0x483BE63: operator new(unsigned long) (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==926==    by 0x125225: __gnu_cxx::new_allocator<std::pair<Edge, Edge> >::allocate(unsigned long, void const*) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x123B5E: std::allocator_traits<std::allocator<std::pair<Edge, Edge> > >::allocate(std::allocator<std::pair<Edge, Edge> >&, unsigned long) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x121E7F: std::_Vector_base<std::pair<Edge, Edge>, std::allocator<std::pair<Edge, Edge> > >::_M_allocate(unsigned long) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x11EC7A: std::_Vector_base<std::pair<Edge, Edge>, std::allocator<std::pair<Edge, Edge> > >::_M_create_storage(unsigned long) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x11ADCC: std::_Vector_base<std::pair<Edge, Edge>, std::allocator<std::pair<Edge, Edge> > >::_Vector_base(unsigned long, std::allocator<std::pair<Edge, Edge> > const&) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x1179FC: std::vector<std::pair<Edge, Edge>, std::allocator<std::pair<Edge, Edge> > >::vector(std::vector<std::pair<Edge, Edge>, std::allocator<std::pair<Edge, Edge> > > const&) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x1160D8: AT::Tree::Cycle::Cycle(AT::Tree::Cycle const&) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x11F46E: void __gnu_cxx::new_allocator<AT::Tree::Cycle>::construct<AT::Tree::Cycle, AT::Tree::Cycle const&>(AT::Tree::Cycle*, AT::Tree::Cycle const&) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x11B5A2: void std::allocator_traits<std::allocator<AT::Tree::Cycle> >::construct<AT::Tree::Cycle, AT::Tree::Cycle const&>(std::allocator<AT::Tree::Cycle>&, AT::Tree::Cycle*, AT::Tree::Cycle const&) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x118155: std::vector<AT::Tree::Cycle, std::allocator<AT::Tree::Cycle> >::push_back(AT::Tree::Cycle const&) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x1137CF: AT::Tree::shrink(unsigned long, unsigned long, std::vector<Edge, std::allocator<Edge> >&, Matching&) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926== 
+==926== 176 bytes in 1 blocks are indirectly lost in loss record 8 of 57
+==926==    at 0x483BE63: operator new(unsigned long) (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==926==    by 0x1149B5: perfect_matching(ED::Graph) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x11444C: max_matching(ED::Graph, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x10EAC3: main (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926== 
+==926== 184 bytes in 6 blocks are indirectly lost in loss record 9 of 57
+==926==    at 0x483BE63: operator new(unsigned long) (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==926==    by 0x10DFFB: __gnu_cxx::new_allocator<unsigned long>::allocate(unsigned long, void const*) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x10DBEC: std::allocator_traits<std::allocator<unsigned long> >::allocate(std::allocator<unsigned long>&, unsigned long) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x120283: std::_Bvector_base<std::allocator<bool> >::_M_allocate(unsigned long) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x11CB42: std::vector<bool, std::allocator<bool> >::_M_fill_insert(std::_Bit_iterator, unsigned long, bool) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x11932F: std::vector<bool, std::allocator<bool> >::insert(std::_Bit_const_iterator, unsigned long, bool const&) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x116B1C: std::vector<bool, std::allocator<bool> >::resize(unsigned long, bool) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x115C73: AT::Tree::Tree(unsigned long, ED::Graph const&) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x1149D1: perfect_matching(ED::Graph) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x114167: max_matching(ED::Graph, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x10EAC3: main (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926== 
+==926== 192 bytes in 6 blocks are indirectly lost in loss record 10 of 57
+==926==    at 0x483BE63: operator new(unsigned long) (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==926==    by 0x10DFFB: __gnu_cxx::new_allocator<unsigned long>::allocate(unsigned long, void const*) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x10DBEC: std::allocator_traits<std::allocator<unsigned long> >::allocate(std::allocator<unsigned long>&, unsigned long) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x10D5B9: std::_Vector_base<unsigned long, std::allocator<unsigned long> >::_M_allocate(unsigned long) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x10E42C: std::_Vector_base<unsigned long, std::allocator<unsigned long> >::_M_create_storage(unsigned long) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x10E188: std::_Vector_base<unsigned long, std::allocator<unsigned long> >::_Vector_base(unsigned long, std::allocator<unsigned long> const&) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x10DDDA: std::vector<unsigned long, std::allocator<unsigned long> >::vector(std::vector<unsigned long, std::allocator<unsigned long> > const&) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x1160BD: AT::Tree::Cycle::Cycle(AT::Tree::Cycle const&) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x11F46E: void __gnu_cxx::new_allocator<AT::Tree::Cycle>::construct<AT::Tree::Cycle, AT::Tree::Cycle const&>(AT::Tree::Cycle*, AT::Tree::Cycle const&) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x11B5A2: void std::allocator_traits<std::allocator<AT::Tree::Cycle> >::construct<AT::Tree::Cycle, AT::Tree::Cycle const&>(std::allocator<AT::Tree::Cycle>&, AT::Tree::Cycle*, AT::Tree::Cycle const&) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x118155: std::vector<AT::Tree::Cycle, std::allocator<AT::Tree::Cycle> >::push_back(AT::Tree::Cycle const&) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x1137CF: AT::Tree::shrink(unsigned long, unsigned long, std::vector<Edge, std::allocator<Edge> >&, Matching&) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926== 
+==926== 224 bytes in 1 blocks are indirectly lost in loss record 11 of 57
+==926==    at 0x483BE63: operator new(unsigned long) (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==926==    by 0x123E1B: __gnu_cxx::new_allocator<AT::Tree::Cycle>::allocate(unsigned long, void const*) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x12233B: std::allocator_traits<std::allocator<AT::Tree::Cycle> >::allocate(std::allocator<AT::Tree::Cycle>&, unsigned long) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x11F659: std::_Vector_base<AT::Tree::Cycle, std::allocator<AT::Tree::Cycle> >::_M_allocate(unsigned long) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x11B63A: void std::vector<AT::Tree::Cycle, std::allocator<AT::Tree::Cycle> >::_M_realloc_insert<AT::Tree::Cycle const&>(__gnu_cxx::__normal_iterator<AT::Tree::Cycle*, std::vector<AT::Tree::Cycle, std::allocator<AT::Tree::Cycle> > >, AT::Tree::Cycle const&) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x11818D: std::vector<AT::Tree::Cycle, std::allocator<AT::Tree::Cycle> >::push_back(AT::Tree::Cycle const&) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x1137CF: AT::Tree::shrink(unsigned long, unsigned long, std::vector<Edge, std::allocator<Edge> >&, Matching&) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x114BE1: perfect_matching(ED::Graph) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x113FC5: max_matching(ED::Graph, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x10EAC3: main (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926== 
+==926== 224 bytes in 28 blocks are indirectly lost in loss record 12 of 57
+==926==    at 0x483BE63: operator new(unsigned long) (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==926==    by 0x10DFFB: __gnu_cxx::new_allocator<unsigned long>::allocate(unsigned long, void const*) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x10DBEC: std::allocator_traits<std::allocator<unsigned long> >::allocate(std::allocator<unsigned long>&, unsigned long) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x10D5B9: std::_Vector_base<unsigned long, std::allocator<unsigned long> >::_M_allocate(unsigned long) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x10CC34: void std::vector<unsigned long, std::allocator<unsigned long> >::_M_realloc_insert<unsigned long const&>(__gnu_cxx::__normal_iterator<unsigned long*, std::vector<unsigned long, std::allocator<unsigned long> > >, unsigned long const&) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x10C655: std::vector<unsigned long, std::allocator<unsigned long> >::push_back(unsigned long const&) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x115D39: AT::Tree::Tree(unsigned long, ED::Graph const&) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x1149D1: perfect_matching(ED::Graph) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x114167: max_matching(ED::Graph, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x10EAC3: main (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926== 
+==926== 320 bytes in 10 blocks are indirectly lost in loss record 13 of 57
+==926==    at 0x483BE63: operator new(unsigned long) (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==926==    by 0x122F25: __gnu_cxx::new_allocator<std::shared_ptr<AT::Tree::Node> >::allocate(unsigned long, void const*) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x1205FC: std::allocator_traits<std::allocator<std::shared_ptr<AT::Tree::Node> > >::allocate(std::allocator<std::shared_ptr<AT::Tree::Node> >&, unsigned long) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x11D059: std::_Vector_base<std::shared_ptr<AT::Tree::Node>, std::allocator<std::shared_ptr<AT::Tree::Node> > >::_M_allocate(unsigned long) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x11A2B4: void std::vector<std::shared_ptr<AT::Tree::Node>, std::allocator<std::shared_ptr<AT::Tree::Node> > >::_M_realloc_insert<std::shared_ptr<AT::Tree::Node> const&>(__gnu_cxx::__normal_iterator<std::shared_ptr<AT::Tree::Node>*, std::vector<std::shared_ptr<AT::Tree::Node>, std::allocator<std::shared_ptr<AT::Tree::Node> > > >, std::shared_ptr<AT::Tree::Node> const&) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x117419: std::vector<std::shared_ptr<AT::Tree::Node>, std::allocator<std::shared_ptr<AT::Tree::Node> > >::push_back(std::shared_ptr<AT::Tree::Node> const&) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x113BD2: AT::Tree::update_tree(std::vector<std::shared_ptr<AT::Tree::Node>, std::allocator<std::shared_ptr<AT::Tree::Node> > >, unsigned long) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x113805: AT::Tree::shrink(unsigned long, unsigned long, std::vector<Edge, std::allocator<Edge> >&, Matching&) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x114BE1: perfect_matching(ED::Graph) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x113FC5: max_matching(ED::Graph, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x10EAC3: main (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926== 
+==926== 448 bytes in 1 blocks are indirectly lost in loss record 14 of 57
+==926==    at 0x483BE63: operator new(unsigned long) (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==926==    by 0x123E1B: __gnu_cxx::new_allocator<AT::Tree::Cycle>::allocate(unsigned long, void const*) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x12233B: std::allocator_traits<std::allocator<AT::Tree::Cycle> >::allocate(std::allocator<AT::Tree::Cycle>&, unsigned long) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x11F659: std::_Vector_base<AT::Tree::Cycle, std::allocator<AT::Tree::Cycle> >::_M_allocate(unsigned long) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x11B63A: void std::vector<AT::Tree::Cycle, std::allocator<AT::Tree::Cycle> >::_M_realloc_insert<AT::Tree::Cycle const&>(__gnu_cxx::__normal_iterator<AT::Tree::Cycle*, std::vector<AT::Tree::Cycle, std::allocator<AT::Tree::Cycle> > >, AT::Tree::Cycle const&) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x11818D: std::vector<AT::Tree::Cycle, std::allocator<AT::Tree::Cycle> >::push_back(AT::Tree::Cycle const&) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x1137CF: AT::Tree::shrink(unsigned long, unsigned long, std::vector<Edge, std::allocator<Edge> >&, Matching&) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x114BE1: perfect_matching(ED::Graph) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x11444C: max_matching(ED::Graph, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x10EAC3: main (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926== 
+==926== 768 bytes in 24 blocks are indirectly lost in loss record 15 of 57
+==926==    at 0x483BE63: operator new(unsigned long) (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==926==    by 0x122F25: __gnu_cxx::new_allocator<std::shared_ptr<AT::Tree::Node> >::allocate(unsigned long, void const*) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x1205FC: std::allocator_traits<std::allocator<std::shared_ptr<AT::Tree::Node> > >::allocate(std::allocator<std::shared_ptr<AT::Tree::Node> >&, unsigned long) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x11D059: std::_Vector_base<std::shared_ptr<AT::Tree::Node>, std::allocator<std::shared_ptr<AT::Tree::Node> > >::_M_allocate(unsigned long) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x11A2B4: void std::vector<std::shared_ptr<AT::Tree::Node>, std::allocator<std::shared_ptr<AT::Tree::Node> > >::_M_realloc_insert<std::shared_ptr<AT::Tree::Node> const&>(__gnu_cxx::__normal_iterator<std::shared_ptr<AT::Tree::Node>*, std::vector<std::shared_ptr<AT::Tree::Node>, std::allocator<std::shared_ptr<AT::Tree::Node> > > >, std::shared_ptr<AT::Tree::Node> const&) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x117419: std::vector<std::shared_ptr<AT::Tree::Node>, std::allocator<std::shared_ptr<AT::Tree::Node> > >::push_back(std::shared_ptr<AT::Tree::Node> const&) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x113BD2: AT::Tree::update_tree(std::vector<std::shared_ptr<AT::Tree::Node>, std::allocator<std::shared_ptr<AT::Tree::Node> > >, unsigned long) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x113805: AT::Tree::shrink(unsigned long, unsigned long, std::vector<Edge, std::allocator<Edge> >&, Matching&) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x114BE1: perfect_matching(ED::Graph) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x114167: max_matching(ED::Graph, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x10EAC3: main (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926== 
+==926== 1,024 bytes in 2 blocks are indirectly lost in loss record 16 of 57
+==926==    at 0x483BE63: operator new(unsigned long) (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==926==    by 0x10DFFB: __gnu_cxx::new_allocator<unsigned long>::allocate(unsigned long, void const*) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x10DBEC: std::allocator_traits<std::allocator<unsigned long> >::allocate(std::allocator<unsigned long>&, unsigned long) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x10D5B9: std::_Vector_base<unsigned long, std::allocator<unsigned long> >::_M_allocate(unsigned long) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x10CC34: void std::vector<unsigned long, std::allocator<unsigned long> >::_M_realloc_insert<unsigned long const&>(__gnu_cxx::__normal_iterator<unsigned long*, std::vector<unsigned long, std::allocator<unsigned long> > >, unsigned long const&) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x10C655: std::vector<unsigned long, std::allocator<unsigned long> >::push_back(unsigned long const&) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x1134E5: AT::Tree::shrink(unsigned long, unsigned long, std::vector<Edge, std::allocator<Edge> >&, Matching&) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x114BE1: perfect_matching(ED::Graph) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x113FC5: max_matching(ED::Graph, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x10EAC3: main (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926== 
+==926== 1,056 bytes in 6 blocks are indirectly lost in loss record 17 of 57
+==926==    at 0x483BE63: operator new(unsigned long) (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==926==    by 0x1149B5: perfect_matching(ED::Graph) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x114167: max_matching(ED::Graph, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x10EAC3: main (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926== 
+==926== 1,936 bytes in 1 blocks are indirectly lost in loss record 18 of 57
+==926==    at 0x483BE63: operator new(unsigned long) (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==926==    by 0x122F25: __gnu_cxx::new_allocator<std::shared_ptr<AT::Tree::Node> >::allocate(unsigned long, void const*) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x1205FC: std::allocator_traits<std::allocator<std::shared_ptr<AT::Tree::Node> > >::allocate(std::allocator<std::shared_ptr<AT::Tree::Node> >&, unsigned long) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x11D059: std::_Vector_base<std::shared_ptr<AT::Tree::Node>, std::allocator<std::shared_ptr<AT::Tree::Node> > >::_M_allocate(unsigned long) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x11976B: std::vector<std::shared_ptr<AT::Tree::Node>, std::allocator<std::shared_ptr<AT::Tree::Node> > >::_M_default_append(unsigned long) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x116C96: std::vector<std::shared_ptr<AT::Tree::Node>, std::allocator<std::shared_ptr<AT::Tree::Node> > >::resize(unsigned long) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x115CD2: AT::Tree::Tree(unsigned long, ED::Graph const&) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x1149D1: perfect_matching(ED::Graph) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x113FC5: max_matching(ED::Graph, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x10EAC3: main (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926== 
+==926== 2,240 bytes in 6 blocks are indirectly lost in loss record 19 of 57
+==926==    at 0x483BE63: operator new(unsigned long) (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==926==    by 0x123E1B: __gnu_cxx::new_allocator<AT::Tree::Cycle>::allocate(unsigned long, void const*) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x12233B: std::allocator_traits<std::allocator<AT::Tree::Cycle> >::allocate(std::allocator<AT::Tree::Cycle>&, unsigned long) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x11F659: std::_Vector_base<AT::Tree::Cycle, std::allocator<AT::Tree::Cycle> >::_M_allocate(unsigned long) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x11B63A: void std::vector<AT::Tree::Cycle, std::allocator<AT::Tree::Cycle> >::_M_realloc_insert<AT::Tree::Cycle const&>(__gnu_cxx::__normal_iterator<AT::Tree::Cycle*, std::vector<AT::Tree::Cycle, std::allocator<AT::Tree::Cycle> > >, AT::Tree::Cycle const&) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x11818D: std::vector<AT::Tree::Cycle, std::allocator<AT::Tree::Cycle> >::push_back(AT::Tree::Cycle const&) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x1137CF: AT::Tree::shrink(unsigned long, unsigned long, std::vector<Edge, std::allocator<Edge> >&, Matching&) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x114BE1: perfect_matching(ED::Graph) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x114167: max_matching(ED::Graph, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x10EAC3: main (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926== 
+==926== 2,904 bytes in 1 blocks are indirectly lost in loss record 20 of 57
+==926==    at 0x483BE63: operator new(unsigned long) (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==926==    by 0x122E10: __gnu_cxx::new_allocator<std::vector<unsigned long, std::allocator<unsigned long> > >::allocate(unsigned long, void const*) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x120502: std::allocator_traits<std::allocator<std::vector<unsigned long, std::allocator<unsigned long> > > >::allocate(std::allocator<std::vector<unsigned long, std::allocator<unsigned long> > >&, unsigned long) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x11CE85: std::_Vector_base<std::vector<unsigned long, std::allocator<unsigned long> >, std::allocator<std::vector<unsigned long, std::allocator<unsigned long> > > >::_M_allocate(unsigned long) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x119488: std::vector<std::vector<unsigned long, std::allocator<unsigned long> >, std::allocator<std::vector<unsigned long, std::allocator<unsigned long> > > >::_M_default_append(unsigned long) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x116C02: std::vector<std::vector<unsigned long, std::allocator<unsigned long> >, std::allocator<std::vector<unsigned long, std::allocator<unsigned long> > > >::resize(unsigned long) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x115CBC: AT::Tree::Tree(unsigned long, ED::Graph const&) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x1149D1: perfect_matching(ED::Graph) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x113FC5: max_matching(ED::Graph, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x10EAC3: main (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926== 
+==926== 3,488 bytes in 6 blocks are indirectly lost in loss record 21 of 57
+==926==    at 0x483BE63: operator new(unsigned long) (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==926==    by 0x125225: __gnu_cxx::new_allocator<std::pair<Edge, Edge> >::allocate(unsigned long, void const*) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x123B5E: std::allocator_traits<std::allocator<std::pair<Edge, Edge> > >::allocate(std::allocator<std::pair<Edge, Edge> >&, unsigned long) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x121E7F: std::_Vector_base<std::pair<Edge, Edge>, std::allocator<std::pair<Edge, Edge> > >::_M_allocate(unsigned long) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x11EC7A: std::_Vector_base<std::pair<Edge, Edge>, std::allocator<std::pair<Edge, Edge> > >::_M_create_storage(unsigned long) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x11ADCC: std::_Vector_base<std::pair<Edge, Edge>, std::allocator<std::pair<Edge, Edge> > >::_Vector_base(unsigned long, std::allocator<std::pair<Edge, Edge> > const&) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x1179FC: std::vector<std::pair<Edge, Edge>, std::allocator<std::pair<Edge, Edge> > >::vector(std::vector<std::pair<Edge, Edge>, std::allocator<std::pair<Edge, Edge> > > const&) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x1160D8: AT::Tree::Cycle::Cycle(AT::Tree::Cycle const&) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x11F46E: void __gnu_cxx::new_allocator<AT::Tree::Cycle>::construct<AT::Tree::Cycle, AT::Tree::Cycle const&>(AT::Tree::Cycle*, AT::Tree::Cycle const&) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x11B5A2: void std::allocator_traits<std::allocator<AT::Tree::Cycle> >::construct<AT::Tree::Cycle, AT::Tree::Cycle const&>(std::allocator<AT::Tree::Cycle>&, AT::Tree::Cycle*, AT::Tree::Cycle const&) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x11B684: void std::vector<AT::Tree::Cycle, std::allocator<AT::Tree::Cycle> >::_M_realloc_insert<AT::Tree::Cycle const&>(__gnu_cxx::__normal_iterator<AT::Tree::Cycle*, std::vector<AT::Tree::Cycle, std::allocator<AT::Tree::Cycle> > >, AT::Tree::Cycle const&) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x11818D: std::vector<AT::Tree::Cycle, std::allocator<AT::Tree::Cycle> >::push_back(AT::Tree::Cycle const&) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926== 
+==926== 3,616 bytes in 1 blocks are indirectly lost in loss record 22 of 57
+==926==    at 0x483BE63: operator new(unsigned long) (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==926==    by 0x122F25: __gnu_cxx::new_allocator<std::shared_ptr<AT::Tree::Node> >::allocate(unsigned long, void const*) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x1205FC: std::allocator_traits<std::allocator<std::shared_ptr<AT::Tree::Node> > >::allocate(std::allocator<std::shared_ptr<AT::Tree::Node> >&, unsigned long) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x11D059: std::_Vector_base<std::shared_ptr<AT::Tree::Node>, std::allocator<std::shared_ptr<AT::Tree::Node> > >::_M_allocate(unsigned long) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x11976B: std::vector<std::shared_ptr<AT::Tree::Node>, std::allocator<std::shared_ptr<AT::Tree::Node> > >::_M_default_append(unsigned long) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x116C96: std::vector<std::shared_ptr<AT::Tree::Node>, std::allocator<std::shared_ptr<AT::Tree::Node> > >::resize(unsigned long) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x115CD2: AT::Tree::Tree(unsigned long, ED::Graph const&) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x1149D1: perfect_matching(ED::Graph) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x11444C: max_matching(ED::Graph, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x10EAC3: main (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926== 
+==926== 4,024 bytes in 11 blocks are indirectly lost in loss record 23 of 57
+==926==    at 0x483BE63: operator new(unsigned long) (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==926==    by 0x10DFFB: __gnu_cxx::new_allocator<unsigned long>::allocate(unsigned long, void const*) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x10DBEC: std::allocator_traits<std::allocator<unsigned long> >::allocate(std::allocator<unsigned long>&, unsigned long) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x10D5B9: std::_Vector_base<unsigned long, std::allocator<unsigned long> >::_M_allocate(unsigned long) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x10E42C: std::_Vector_base<unsigned long, std::allocator<unsigned long> >::_M_create_storage(unsigned long) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x10E188: std::_Vector_base<unsigned long, std::allocator<unsigned long> >::_Vector_base(unsigned long, std::allocator<unsigned long> const&) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x10DDDA: std::vector<unsigned long, std::allocator<unsigned long> >::vector(std::vector<unsigned long, std::allocator<unsigned long> > const&) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x1160BD: AT::Tree::Cycle::Cycle(AT::Tree::Cycle const&) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x11F46E: void __gnu_cxx::new_allocator<AT::Tree::Cycle>::construct<AT::Tree::Cycle, AT::Tree::Cycle const&>(AT::Tree::Cycle*, AT::Tree::Cycle const&) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x11B5A2: void std::allocator_traits<std::allocator<AT::Tree::Cycle> >::construct<AT::Tree::Cycle, AT::Tree::Cycle const&>(std::allocator<AT::Tree::Cycle>&, AT::Tree::Cycle*, AT::Tree::Cycle const&) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x11B684: void std::vector<AT::Tree::Cycle, std::allocator<AT::Tree::Cycle> >::_M_realloc_insert<AT::Tree::Cycle const&>(__gnu_cxx::__normal_iterator<AT::Tree::Cycle*, std::vector<AT::Tree::Cycle, std::allocator<AT::Tree::Cycle> > >, AT::Tree::Cycle const&) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x11818D: std::vector<AT::Tree::Cycle, std::allocator<AT::Tree::Cycle> >::push_back(AT::Tree::Cycle const&) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926== 
+==926== 5,424 bytes in 1 blocks are indirectly lost in loss record 24 of 57
+==926==    at 0x483BE63: operator new(unsigned long) (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==926==    by 0x122E10: __gnu_cxx::new_allocator<std::vector<unsigned long, std::allocator<unsigned long> > >::allocate(unsigned long, void const*) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x120502: std::allocator_traits<std::allocator<std::vector<unsigned long, std::allocator<unsigned long> > > >::allocate(std::allocator<std::vector<unsigned long, std::allocator<unsigned long> > >&, unsigned long) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x11CE85: std::_Vector_base<std::vector<unsigned long, std::allocator<unsigned long> >, std::allocator<std::vector<unsigned long, std::allocator<unsigned long> > > >::_M_allocate(unsigned long) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x119488: std::vector<std::vector<unsigned long, std::allocator<unsigned long> >, std::allocator<std::vector<unsigned long, std::allocator<unsigned long> > > >::_M_default_append(unsigned long) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x116C02: std::vector<std::vector<unsigned long, std::allocator<unsigned long> >, std::allocator<std::vector<unsigned long, std::allocator<unsigned long> > > >::resize(unsigned long) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x115CBC: AT::Tree::Tree(unsigned long, ED::Graph const&) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x1149D1: perfect_matching(ED::Graph) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x11444C: max_matching(ED::Graph, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x10EAC3: main (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926== 
+==926== 6,624 bytes in 92 blocks are indirectly lost in loss record 25 of 57
+==926==    at 0x483BE63: operator new(unsigned long) (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==926==    by 0x1261DF: __gnu_cxx::new_allocator<std::_Sp_counted_ptr_inplace<AT::Tree::Node, std::allocator<AT::Tree::Node>, (__gnu_cxx::_Lock_policy)2> >::allocate(unsigned long, void const*) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x1256F8: std::allocator_traits<std::allocator<std::_Sp_counted_ptr_inplace<AT::Tree::Node, std::allocator<AT::Tree::Node>, (__gnu_cxx::_Lock_policy)2> > >::allocate(std::allocator<std::_Sp_counted_ptr_inplace<AT::Tree::Node, std::allocator<AT::Tree::Node>, (__gnu_cxx::_Lock_policy)2> >&, unsigned long) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x1242D5: std::__allocated_ptr<std::allocator<std::_Sp_counted_ptr_inplace<AT::Tree::Node, std::allocator<AT::Tree::Node>, (__gnu_cxx::_Lock_policy)2> > > std::__allocate_guarded<std::allocator<std::_Sp_counted_ptr_inplace<AT::Tree::Node, std::allocator<AT::Tree::Node>, (__gnu_cxx::_Lock_policy)2> > >(std::allocator<std::_Sp_counted_ptr_inplace<AT::Tree::Node, std::allocator<AT::Tree::Node>, (__gnu_cxx::_Lock_policy)2> >&) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x1228FD: std::__shared_count<(__gnu_cxx::_Lock_policy)2>::__shared_count<AT::Tree::Node, std::allocator<AT::Tree::Node>>(AT::Tree::Node*&, std::_Sp_alloc_shared_tag<std::allocator<AT::Tree::Node> >) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x11FF97: std::__shared_ptr<AT::Tree::Node, (__gnu_cxx::_Lock_policy)2>::__shared_ptr<std::allocator<AT::Tree::Node>>(std::_Sp_alloc_shared_tag<std::allocator<AT::Tree::Node> >) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x11C8C8: std::shared_ptr<AT::Tree::Node>::shared_ptr<std::allocator<AT::Tree::Node>>(std::_Sp_alloc_shared_tag<std::allocator<AT::Tree::Node> >) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x1190F5: std::shared_ptr<AT::Tree::Node> std::allocate_shared<AT::Tree::Node, std::allocator<AT::Tree::Node>>(std::allocator<AT::Tree::Node> const&) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x116904: std::shared_ptr<AT::Tree::Node> std::make_shared<AT::Tree::Node>() (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x115BD1: AT::Tree::Tree(unsigned long, ED::Graph const&) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x1149D1: perfect_matching(ED::Graph) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x11444C: max_matching(ED::Graph, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926== 
+==926== 6,688 bytes in 120 blocks are indirectly lost in loss record 26 of 57
+==926==    at 0x483BE63: operator new(unsigned long) (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==926==    by 0x10DFFB: __gnu_cxx::new_allocator<unsigned long>::allocate(unsigned long, void const*) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x10DBEC: std::allocator_traits<std::allocator<unsigned long> >::allocate(std::allocator<unsigned long>&, unsigned long) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x10D5B9: std::_Vector_base<unsigned long, std::allocator<unsigned long> >::_M_allocate(unsigned long) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x10CC34: void std::vector<unsigned long, std::allocator<unsigned long> >::_M_realloc_insert<unsigned long const&>(__gnu_cxx::__normal_iterator<unsigned long*, std::vector<unsigned long, std::allocator<unsigned long> > >, unsigned long const&) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x10C655: std::vector<unsigned long, std::allocator<unsigned long> >::push_back(unsigned long const&) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x113094: AT::Tree::shrink(unsigned long, unsigned long, std::vector<Edge, std::allocator<Edge> >&, Matching&) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x114BE1: perfect_matching(ED::Graph) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x113FC5: max_matching(ED::Graph, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x10EAC3: main (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926== 
+==926== 6,784 bytes in 220 blocks are indirectly lost in loss record 27 of 57
+==926==    at 0x483BE63: operator new(unsigned long) (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==926==    by 0x10DFFB: __gnu_cxx::new_allocator<unsigned long>::allocate(unsigned long, void const*) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x10DBEC: std::allocator_traits<std::allocator<unsigned long> >::allocate(std::allocator<unsigned long>&, unsigned long) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x10D5B9: std::_Vector_base<unsigned long, std::allocator<unsigned long> >::_M_allocate(unsigned long) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x10CC34: void std::vector<unsigned long, std::allocator<unsigned long> >::_M_realloc_insert<unsigned long const&>(__gnu_cxx::__normal_iterator<unsigned long*, std::vector<unsigned long, std::allocator<unsigned long> > >, unsigned long const&) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x10C655: std::vector<unsigned long, std::allocator<unsigned long> >::push_back(unsigned long const&) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x113094: AT::Tree::shrink(unsigned long, unsigned long, std::vector<Edge, std::allocator<Edge> >&, Matching&) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x114BE1: perfect_matching(ED::Graph) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x11444C: max_matching(ED::Graph, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x10EAC3: main (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926== 
+==926== 7,744 bytes in 121 blocks are indirectly lost in loss record 28 of 57
+==926==    at 0x483BE63: operator new(unsigned long) (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==926==    by 0x1249AB: __gnu_cxx::new_allocator<std::_Rb_tree_node<std::pair<unsigned long const, std::vector<unsigned long, std::allocator<unsigned long> > > > >::allocate(unsigned long, void const*) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x122FBB: std::allocator_traits<std::allocator<std::_Rb_tree_node<std::pair<unsigned long const, std::vector<unsigned long, std::allocator<unsigned long> > > > > >::allocate(std::allocator<std::_Rb_tree_node<std::pair<unsigned long const, std::vector<unsigned long, std::allocator<unsigned long> > > > >&, unsigned long) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x120750: std::_Rb_tree<unsigned long, std::pair<unsigned long const, std::vector<unsigned long, std::allocator<unsigned long> > >, std::_Select1st<std::pair<unsigned long const, std::vector<unsigned long, std::allocator<unsigned long> > > >, std::less<unsigned long>, std::allocator<std::pair<unsigned long const, std::vector<unsigned long, std::allocator<unsigned long> > > > >::_M_get_node() (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x11D1A4: std::_Rb_tree_node<std::pair<unsigned long const, std::vector<unsigned long, std::allocator<unsigned long> > > >* std::_Rb_tree<unsigned long, std::pair<unsigned long const, std::vector<unsigned long, std::allocator<unsigned long> > >, std::_Select1st<std::pair<unsigned long const, std::vector<unsigned long, std::allocator<unsigned long> > > >, std::less<unsigned long>, std::allocator<std::pair<unsigned long const, std::vector<unsigned long, std::allocator<unsigned long> > > > >::_M_create_node<std::piecewise_construct_t const&, std::tuple<unsigned long const&>, std::tuple<> >(std::piecewise_construct_t const&, std::tuple<unsigned long const&>&&, std::tuple<>&&) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x119A4E: std::_Rb_tree_iterator<std::pair<unsigned long const, std::vector<unsigned long, std::allocator<unsigned long> > > > std::_Rb_tree<unsigned long, std::pair<unsigned long const, std::vector<unsigned long, std::allocator<unsigned long> > >, std::_Select1st<std::pair<unsigned long const, std::vector<unsigned long, std::allocator<unsigned long> > > >, std::less<unsigned long>, std::allocator<std::pair<unsigned long const, std::vector<unsigned long, std::allocator<unsigned long> > > > >::_M_emplace_hint_unique<std::piecewise_construct_t const&, std::tuple<unsigned long const&>, std::tuple<> >(std::_Rb_tree_const_iterator<std::pair<unsigned long const, std::vector<unsigned long, std::allocator<unsigned long> > > >, std::piecewise_construct_t const&, std::tuple<unsigned long const&>&&, std::tuple<>&&) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x116DE9: std::map<unsigned long, std::vector<unsigned long, std::allocator<unsigned long> >, std::less<unsigned long>, std::allocator<std::pair<unsigned long const, std::vector<unsigned long, std::allocator<unsigned long> > > > >::operator[](unsigned long const&) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x115D27: AT::Tree::Tree(unsigned long, ED::Graph const&) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x1149D1: perfect_matching(ED::Graph) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x113FC5: max_matching(ED::Graph, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x10EAC3: main (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926== 
+==926== 8,192 bytes in 1 blocks are still reachable in loss record 29 of 57
+==926==    at 0x483C583: operator new[](unsigned long) (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==926==    by 0x495DF63: std::basic_filebuf<char, std::char_traits<char> >::_M_allocate_internal_buffer() (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.28)
+==926==    by 0x495BD49: ??? (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.28)
+==926==    by 0x490DB47: std::ios_base::sync_with_stdio(bool) (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.28)
+==926==    by 0x10E9BB: main (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926== 
+==926== 8,192 bytes in 1 blocks are still reachable in loss record 30 of 57
+==926==    at 0x483C583: operator new[](unsigned long) (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==926==    by 0x495DF63: std::basic_filebuf<char, std::char_traits<char> >::_M_allocate_internal_buffer() (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.28)
+==926==    by 0x495BD49: ??? (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.28)
+==926==    by 0x490DB68: std::ios_base::sync_with_stdio(bool) (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.28)
+==926==    by 0x10E9BB: main (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926== 
+==926== 8,192 bytes in 1 blocks are still reachable in loss record 31 of 57
+==926==    at 0x483C583: operator new[](unsigned long) (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==926==    by 0x495DF63: std::basic_filebuf<char, std::char_traits<char> >::_M_allocate_internal_buffer() (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.28)
+==926==    by 0x495BD49: ??? (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.28)
+==926==    by 0x490DB88: std::ios_base::sync_with_stdio(bool) (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.28)
+==926==    by 0x10E9BB: main (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926== 
+==926== 14,400 bytes in 225 blocks are indirectly lost in loss record 32 of 57
+==926==    at 0x483BE63: operator new(unsigned long) (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==926==    by 0x1249AB: __gnu_cxx::new_allocator<std::_Rb_tree_node<std::pair<unsigned long const, std::vector<unsigned long, std::allocator<unsigned long> > > > >::allocate(unsigned long, void const*) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x122FBB: std::allocator_traits<std::allocator<std::_Rb_tree_node<std::pair<unsigned long const, std::vector<unsigned long, std::allocator<unsigned long> > > > > >::allocate(std::allocator<std::_Rb_tree_node<std::pair<unsigned long const, std::vector<unsigned long, std::allocator<unsigned long> > > > >&, unsigned long) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x120750: std::_Rb_tree<unsigned long, std::pair<unsigned long const, std::vector<unsigned long, std::allocator<unsigned long> > >, std::_Select1st<std::pair<unsigned long const, std::vector<unsigned long, std::allocator<unsigned long> > > >, std::less<unsigned long>, std::allocator<std::pair<unsigned long const, std::vector<unsigned long, std::allocator<unsigned long> > > > >::_M_get_node() (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x11D1A4: std::_Rb_tree_node<std::pair<unsigned long const, std::vector<unsigned long, std::allocator<unsigned long> > > >* std::_Rb_tree<unsigned long, std::pair<unsigned long const, std::vector<unsigned long, std::allocator<unsigned long> > >, std::_Select1st<std::pair<unsigned long const, std::vector<unsigned long, std::allocator<unsigned long> > > >, std::less<unsigned long>, std::allocator<std::pair<unsigned long const, std::vector<unsigned long, std::allocator<unsigned long> > > > >::_M_create_node<std::piecewise_construct_t const&, std::tuple<unsigned long const&>, std::tuple<> >(std::piecewise_construct_t const&, std::tuple<unsigned long const&>&&, std::tuple<>&&) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x119A4E: std::_Rb_tree_iterator<std::pair<unsigned long const, std::vector<unsigned long, std::allocator<unsigned long> > > > std::_Rb_tree<unsigned long, std::pair<unsigned long const, std::vector<unsigned long, std::allocator<unsigned long> > >, std::_Select1st<std::pair<unsigned long const, std::vector<unsigned long, std::allocator<unsigned long> > > >, std::less<unsigned long>, std::allocator<std::pair<unsigned long const, std::vector<unsigned long, std::allocator<unsigned long> > > > >::_M_emplace_hint_unique<std::piecewise_construct_t const&, std::tuple<unsigned long const&>, std::tuple<> >(std::_Rb_tree_const_iterator<std::pair<unsigned long const, std::vector<unsigned long, std::allocator<unsigned long> > > >, std::piecewise_construct_t const&, std::tuple<unsigned long const&>&&, std::tuple<>&&) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x116DE9: std::map<unsigned long, std::vector<unsigned long, std::allocator<unsigned long> >, std::less<unsigned long>, std::allocator<std::pair<unsigned long const, std::vector<unsigned long, std::allocator<unsigned long> > > > >::operator[](unsigned long const&) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x115D27: AT::Tree::Tree(unsigned long, ED::Graph const&) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x1149D1: perfect_matching(ED::Graph) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x11444C: max_matching(ED::Graph, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x10EAC3: main (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926== 
+==926== 18,432 bytes in 9 blocks are indirectly lost in loss record 33 of 57
+==926==    at 0x483BE63: operator new(unsigned long) (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==926==    by 0x10DFFB: __gnu_cxx::new_allocator<unsigned long>::allocate(unsigned long, void const*) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x10DBEC: std::allocator_traits<std::allocator<unsigned long> >::allocate(std::allocator<unsigned long>&, unsigned long) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x10D5B9: std::_Vector_base<unsigned long, std::allocator<unsigned long> >::_M_allocate(unsigned long) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x10CC34: void std::vector<unsigned long, std::allocator<unsigned long> >::_M_realloc_insert<unsigned long const&>(__gnu_cxx::__normal_iterator<unsigned long*, std::vector<unsigned long, std::allocator<unsigned long> > >, unsigned long const&) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x10C655: std::vector<unsigned long, std::allocator<unsigned long> >::push_back(unsigned long const&) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x1134E5: AT::Tree::shrink(unsigned long, unsigned long, std::vector<Edge, std::allocator<Edge> >&, Matching&) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x114BE1: perfect_matching(ED::Graph) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x114167: max_matching(ED::Graph, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x10EAC3: main (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926== 
+==926== 20,192 bytes in 6 blocks are indirectly lost in loss record 34 of 57
+==926==    at 0x483BE63: operator new(unsigned long) (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==926==    by 0x122F25: __gnu_cxx::new_allocator<std::shared_ptr<AT::Tree::Node> >::allocate(unsigned long, void const*) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x1205FC: std::allocator_traits<std::allocator<std::shared_ptr<AT::Tree::Node> > >::allocate(std::allocator<std::shared_ptr<AT::Tree::Node> >&, unsigned long) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x11D059: std::_Vector_base<std::shared_ptr<AT::Tree::Node>, std::allocator<std::shared_ptr<AT::Tree::Node> > >::_M_allocate(unsigned long) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x11976B: std::vector<std::shared_ptr<AT::Tree::Node>, std::allocator<std::shared_ptr<AT::Tree::Node> > >::_M_default_append(unsigned long) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x116C96: std::vector<std::shared_ptr<AT::Tree::Node>, std::allocator<std::shared_ptr<AT::Tree::Node> > >::resize(unsigned long) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x115CD2: AT::Tree::Tree(unsigned long, ED::Graph const&) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x1149D1: perfect_matching(ED::Graph) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x114167: max_matching(ED::Graph, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x10EAC3: main (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926== 
+==926== 20,480 bytes in 1,276 blocks are indirectly lost in loss record 35 of 57
+==926==    at 0x483BE63: operator new(unsigned long) (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==926==    by 0x122F25: __gnu_cxx::new_allocator<std::shared_ptr<AT::Tree::Node> >::allocate(unsigned long, void const*) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x1205FC: std::allocator_traits<std::allocator<std::shared_ptr<AT::Tree::Node> > >::allocate(std::allocator<std::shared_ptr<AT::Tree::Node> >&, unsigned long) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x11D059: std::_Vector_base<std::shared_ptr<AT::Tree::Node>, std::allocator<std::shared_ptr<AT::Tree::Node> > >::_M_allocate(unsigned long) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x11A2B4: void std::vector<std::shared_ptr<AT::Tree::Node>, std::allocator<std::shared_ptr<AT::Tree::Node> > >::_M_realloc_insert<std::shared_ptr<AT::Tree::Node> const&>(__gnu_cxx::__normal_iterator<std::shared_ptr<AT::Tree::Node>*, std::vector<std::shared_ptr<AT::Tree::Node>, std::allocator<std::shared_ptr<AT::Tree::Node> > > >, std::shared_ptr<AT::Tree::Node> const&) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x117419: std::vector<std::shared_ptr<AT::Tree::Node>, std::allocator<std::shared_ptr<AT::Tree::Node> > >::push_back(std::shared_ptr<AT::Tree::Node> const&) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x111C64: AT::Tree::add_leaf(std::shared_ptr<AT::Tree::Node>, unsigned long) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x112041: AT::Tree::extend(unsigned long, unsigned long, std::vector<Edge, std::allocator<Edge> >&, Matching const&) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x114B6C: perfect_matching(ED::Graph) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x113FC5: max_matching(ED::Graph, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x10EAC3: main (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926== 
+==926== 30,288 bytes in 6 blocks are indirectly lost in loss record 36 of 57
+==926==    at 0x483BE63: operator new(unsigned long) (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==926==    by 0x122E10: __gnu_cxx::new_allocator<std::vector<unsigned long, std::allocator<unsigned long> > >::allocate(unsigned long, void const*) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x120502: std::allocator_traits<std::allocator<std::vector<unsigned long, std::allocator<unsigned long> > > >::allocate(std::allocator<std::vector<unsigned long, std::allocator<unsigned long> > >&, unsigned long) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x11CE85: std::_Vector_base<std::vector<unsigned long, std::allocator<unsigned long> >, std::allocator<std::vector<unsigned long, std::allocator<unsigned long> > > >::_M_allocate(unsigned long) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x119488: std::vector<std::vector<unsigned long, std::allocator<unsigned long> >, std::allocator<std::vector<unsigned long, std::allocator<unsigned long> > > >::_M_default_append(unsigned long) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x116C02: std::vector<std::vector<unsigned long, std::allocator<unsigned long> >, std::allocator<std::vector<unsigned long, std::allocator<unsigned long> > > >::resize(unsigned long) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x115CBC: AT::Tree::Tree(unsigned long, ED::Graph const&) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x1149D1: perfect_matching(ED::Graph) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x114167: max_matching(ED::Graph, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x10EAC3: main (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926== 
+==926== 32,768 bytes in 1 blocks are still reachable in loss record 37 of 57
+==926==    at 0x483C583: operator new[](unsigned long) (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==926==    by 0x495FD76: std::basic_filebuf<wchar_t, std::char_traits<wchar_t> >::_M_allocate_internal_buffer() (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.28)
+==926==    by 0x495BF39: ??? (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.28)
+==926==    by 0x490DBFD: std::ios_base::sync_with_stdio(bool) (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.28)
+==926==    by 0x10E9BB: main (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926== 
+==926== 32,768 bytes in 1 blocks are still reachable in loss record 38 of 57
+==926==    at 0x483C583: operator new[](unsigned long) (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==926==    by 0x495FD76: std::basic_filebuf<wchar_t, std::char_traits<wchar_t> >::_M_allocate_internal_buffer() (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.28)
+==926==    by 0x495BF39: ??? (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.28)
+==926==    by 0x490DC17: std::ios_base::sync_with_stdio(bool) (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.28)
+==926==    by 0x10E9BB: main (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926== 
+==926== 32,768 bytes in 1 blocks are still reachable in loss record 39 of 57
+==926==    at 0x483C583: operator new[](unsigned long) (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==926==    by 0x495FD76: std::basic_filebuf<wchar_t, std::char_traits<wchar_t> >::_M_allocate_internal_buffer() (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.28)
+==926==    by 0x495BF39: ??? (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.28)
+==926==    by 0x490DC30: std::ios_base::sync_with_stdio(bool) (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.28)
+==926==    by 0x10E9BB: main (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926== 
+==926== 33,408 bytes in 464 blocks are indirectly lost in loss record 40 of 57
+==926==    at 0x483BE63: operator new(unsigned long) (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==926==    by 0x1261DF: __gnu_cxx::new_allocator<std::_Sp_counted_ptr_inplace<AT::Tree::Node, std::allocator<AT::Tree::Node>, (__gnu_cxx::_Lock_policy)2> >::allocate(unsigned long, void const*) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x1256F8: std::allocator_traits<std::allocator<std::_Sp_counted_ptr_inplace<AT::Tree::Node, std::allocator<AT::Tree::Node>, (__gnu_cxx::_Lock_policy)2> > >::allocate(std::allocator<std::_Sp_counted_ptr_inplace<AT::Tree::Node, std::allocator<AT::Tree::Node>, (__gnu_cxx::_Lock_policy)2> >&, unsigned long) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x1242D5: std::__allocated_ptr<std::allocator<std::_Sp_counted_ptr_inplace<AT::Tree::Node, std::allocator<AT::Tree::Node>, (__gnu_cxx::_Lock_policy)2> > > std::__allocate_guarded<std::allocator<std::_Sp_counted_ptr_inplace<AT::Tree::Node, std::allocator<AT::Tree::Node>, (__gnu_cxx::_Lock_policy)2> > >(std::allocator<std::_Sp_counted_ptr_inplace<AT::Tree::Node, std::allocator<AT::Tree::Node>, (__gnu_cxx::_Lock_policy)2> >&) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x1228FD: std::__shared_count<(__gnu_cxx::_Lock_policy)2>::__shared_count<AT::Tree::Node, std::allocator<AT::Tree::Node>>(AT::Tree::Node*&, std::_Sp_alloc_shared_tag<std::allocator<AT::Tree::Node> >) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x11FF97: std::__shared_ptr<AT::Tree::Node, (__gnu_cxx::_Lock_policy)2>::__shared_ptr<std::allocator<AT::Tree::Node>>(std::_Sp_alloc_shared_tag<std::allocator<AT::Tree::Node> >) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x11C8C8: std::shared_ptr<AT::Tree::Node>::shared_ptr<std::allocator<AT::Tree::Node>>(std::_Sp_alloc_shared_tag<std::allocator<AT::Tree::Node> >) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x1190F5: std::shared_ptr<AT::Tree::Node> std::allocate_shared<AT::Tree::Node, std::allocator<AT::Tree::Node>>(std::allocator<AT::Tree::Node> const&) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x116904: std::shared_ptr<AT::Tree::Node> std::make_shared<AT::Tree::Node>() (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x115BD1: AT::Tree::Tree(unsigned long, ED::Graph const&) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x1149D1: perfect_matching(ED::Graph) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x114167: max_matching(ED::Graph, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926== 
+==926== 43,008 bytes in 119 blocks are indirectly lost in loss record 41 of 57
+==926==    at 0x483BE63: operator new(unsigned long) (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==926==    by 0x10DFFB: __gnu_cxx::new_allocator<unsigned long>::allocate(unsigned long, void const*) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x10DBEC: std::allocator_traits<std::allocator<unsigned long> >::allocate(std::allocator<unsigned long>&, unsigned long) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x10D5B9: std::_Vector_base<unsigned long, std::allocator<unsigned long> >::_M_allocate(unsigned long) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x10CC34: void std::vector<unsigned long, std::allocator<unsigned long> >::_M_realloc_insert<unsigned long const&>(__gnu_cxx::__normal_iterator<unsigned long*, std::vector<unsigned long, std::allocator<unsigned long> > >, unsigned long const&) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x10C655: std::vector<unsigned long, std::allocator<unsigned long> >::push_back(unsigned long const&) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x115DD1: AT::Tree::Tree(unsigned long, ED::Graph const&) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x1149D1: perfect_matching(ED::Graph) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x113FC5: max_matching(ED::Graph, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x10EAC3: main (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926== 
+==926== 44,992 bytes in 1,234 blocks are indirectly lost in loss record 42 of 57
+==926==    at 0x483BE63: operator new(unsigned long) (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==926==    by 0x10DFFB: __gnu_cxx::new_allocator<unsigned long>::allocate(unsigned long, void const*) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x10DBEC: std::allocator_traits<std::allocator<unsigned long> >::allocate(std::allocator<unsigned long>&, unsigned long) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x10D5B9: std::_Vector_base<unsigned long, std::allocator<unsigned long> >::_M_allocate(unsigned long) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x10CC34: void std::vector<unsigned long, std::allocator<unsigned long> >::_M_realloc_insert<unsigned long const&>(__gnu_cxx::__normal_iterator<unsigned long*, std::vector<unsigned long, std::allocator<unsigned long> > >, unsigned long const&) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x10C655: std::vector<unsigned long, std::allocator<unsigned long> >::push_back(unsigned long const&) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x113094: AT::Tree::shrink(unsigned long, unsigned long, std::vector<Edge, std::allocator<Edge> >&, Matching&) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x114BE1: perfect_matching(ED::Graph) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x114167: max_matching(ED::Graph, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x10EAC3: main (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926== 
+==926== 75,928 (176 direct, 75,752 indirect) bytes in 1 blocks are definitely lost in loss record 43 of 57
+==926==    at 0x483BE63: operator new(unsigned long) (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==926==    by 0x1149B5: perfect_matching(ED::Graph) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x113FC5: max_matching(ED::Graph, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x10EAC3: main (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926== 
+==926== 80,384 bytes in 1,256 blocks are indirectly lost in loss record 44 of 57
+==926==    at 0x483BE63: operator new(unsigned long) (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==926==    by 0x1249AB: __gnu_cxx::new_allocator<std::_Rb_tree_node<std::pair<unsigned long const, std::vector<unsigned long, std::allocator<unsigned long> > > > >::allocate(unsigned long, void const*) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x122FBB: std::allocator_traits<std::allocator<std::_Rb_tree_node<std::pair<unsigned long const, std::vector<unsigned long, std::allocator<unsigned long> > > > > >::allocate(std::allocator<std::_Rb_tree_node<std::pair<unsigned long const, std::vector<unsigned long, std::allocator<unsigned long> > > > >&, unsigned long) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x120750: std::_Rb_tree<unsigned long, std::pair<unsigned long const, std::vector<unsigned long, std::allocator<unsigned long> > >, std::_Select1st<std::pair<unsigned long const, std::vector<unsigned long, std::allocator<unsigned long> > > >, std::less<unsigned long>, std::allocator<std::pair<unsigned long const, std::vector<unsigned long, std::allocator<unsigned long> > > > >::_M_get_node() (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x11D1A4: std::_Rb_tree_node<std::pair<unsigned long const, std::vector<unsigned long, std::allocator<unsigned long> > > >* std::_Rb_tree<unsigned long, std::pair<unsigned long const, std::vector<unsigned long, std::allocator<unsigned long> > >, std::_Select1st<std::pair<unsigned long const, std::vector<unsigned long, std::allocator<unsigned long> > > >, std::less<unsigned long>, std::allocator<std::pair<unsigned long const, std::vector<unsigned long, std::allocator<unsigned long> > > > >::_M_create_node<std::piecewise_construct_t const&, std::tuple<unsigned long const&>, std::tuple<> >(std::piecewise_construct_t const&, std::tuple<unsigned long const&>&&, std::tuple<>&&) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x119A4E: std::_Rb_tree_iterator<std::pair<unsigned long const, std::vector<unsigned long, std::allocator<unsigned long> > > > std::_Rb_tree<unsigned long, std::pair<unsigned long const, std::vector<unsigned long, std::allocator<unsigned long> > >, std::_Select1st<std::pair<unsigned long const, std::vector<unsigned long, std::allocator<unsigned long> > > >, std::less<unsigned long>, std::allocator<std::pair<unsigned long const, std::vector<unsigned long, std::allocator<unsigned long> > > > >::_M_emplace_hint_unique<std::piecewise_construct_t const&, std::tuple<unsigned long const&>, std::tuple<> >(std::_Rb_tree_const_iterator<std::pair<unsigned long const, std::vector<unsigned long, std::allocator<unsigned long> > > >, std::piecewise_construct_t const&, std::tuple<unsigned long const&>&&, std::tuple<>&&) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x116DE9: std::map<unsigned long, std::vector<unsigned long, std::allocator<unsigned long> >, std::less<unsigned long>, std::allocator<std::pair<unsigned long const, std::vector<unsigned long, std::allocator<unsigned long> > > > >::operator[](unsigned long const&) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x115D27: AT::Tree::Tree(unsigned long, ED::Graph const&) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x1149D1: perfect_matching(ED::Graph) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x114167: max_matching(ED::Graph, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x10EAC3: main (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926== 
+==926== 107,392 (1,440 direct, 105,952 indirect) bytes in 20 blocks are definitely lost in loss record 45 of 57
+==926==    at 0x483BE63: operator new(unsigned long) (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==926==    by 0x1261DF: __gnu_cxx::new_allocator<std::_Sp_counted_ptr_inplace<AT::Tree::Node, std::allocator<AT::Tree::Node>, (__gnu_cxx::_Lock_policy)2> >::allocate(unsigned long, void const*) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x1256F8: std::allocator_traits<std::allocator<std::_Sp_counted_ptr_inplace<AT::Tree::Node, std::allocator<AT::Tree::Node>, (__gnu_cxx::_Lock_policy)2> > >::allocate(std::allocator<std::_Sp_counted_ptr_inplace<AT::Tree::Node, std::allocator<AT::Tree::Node>, (__gnu_cxx::_Lock_policy)2> >&, unsigned long) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x1242D5: std::__allocated_ptr<std::allocator<std::_Sp_counted_ptr_inplace<AT::Tree::Node, std::allocator<AT::Tree::Node>, (__gnu_cxx::_Lock_policy)2> > > std::__allocate_guarded<std::allocator<std::_Sp_counted_ptr_inplace<AT::Tree::Node, std::allocator<AT::Tree::Node>, (__gnu_cxx::_Lock_policy)2> > >(std::allocator<std::_Sp_counted_ptr_inplace<AT::Tree::Node, std::allocator<AT::Tree::Node>, (__gnu_cxx::_Lock_policy)2> >&) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x1228FD: std::__shared_count<(__gnu_cxx::_Lock_policy)2>::__shared_count<AT::Tree::Node, std::allocator<AT::Tree::Node>>(AT::Tree::Node*&, std::_Sp_alloc_shared_tag<std::allocator<AT::Tree::Node> >) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x11FF97: std::__shared_ptr<AT::Tree::Node, (__gnu_cxx::_Lock_policy)2>::__shared_ptr<std::allocator<AT::Tree::Node>>(std::_Sp_alloc_shared_tag<std::allocator<AT::Tree::Node> >) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x11C8C8: std::shared_ptr<AT::Tree::Node>::shared_ptr<std::allocator<AT::Tree::Node>>(std::_Sp_alloc_shared_tag<std::allocator<AT::Tree::Node> >) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x1190F5: std::shared_ptr<AT::Tree::Node> std::allocate_shared<AT::Tree::Node, std::allocator<AT::Tree::Node>>(std::allocator<AT::Tree::Node> const&) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x116904: std::shared_ptr<AT::Tree::Node> std::make_shared<AT::Tree::Node>() (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x115BD1: AT::Tree::Tree(unsigned long, ED::Graph const&) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x1149D1: perfect_matching(ED::Graph) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x11444C: max_matching(ED::Graph, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926== 
+==926== 119,912 (3,528 direct, 116,384 indirect) bytes in 49 blocks are definitely lost in loss record 46 of 57
+==926==    at 0x483BE63: operator new(unsigned long) (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==926==    by 0x1261DF: __gnu_cxx::new_allocator<std::_Sp_counted_ptr_inplace<AT::Tree::Node, std::allocator<AT::Tree::Node>, (__gnu_cxx::_Lock_policy)2> >::allocate(unsigned long, void const*) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x1256F8: std::allocator_traits<std::allocator<std::_Sp_counted_ptr_inplace<AT::Tree::Node, std::allocator<AT::Tree::Node>, (__gnu_cxx::_Lock_policy)2> > >::allocate(std::allocator<std::_Sp_counted_ptr_inplace<AT::Tree::Node, std::allocator<AT::Tree::Node>, (__gnu_cxx::_Lock_policy)2> >&, unsigned long) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x1242D5: std::__allocated_ptr<std::allocator<std::_Sp_counted_ptr_inplace<AT::Tree::Node, std::allocator<AT::Tree::Node>, (__gnu_cxx::_Lock_policy)2> > > std::__allocate_guarded<std::allocator<std::_Sp_counted_ptr_inplace<AT::Tree::Node, std::allocator<AT::Tree::Node>, (__gnu_cxx::_Lock_policy)2> > >(std::allocator<std::_Sp_counted_ptr_inplace<AT::Tree::Node, std::allocator<AT::Tree::Node>, (__gnu_cxx::_Lock_policy)2> >&) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x1228FD: std::__shared_count<(__gnu_cxx::_Lock_policy)2>::__shared_count<AT::Tree::Node, std::allocator<AT::Tree::Node>>(AT::Tree::Node*&, std::_Sp_alloc_shared_tag<std::allocator<AT::Tree::Node> >) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x11FF97: std::__shared_ptr<AT::Tree::Node, (__gnu_cxx::_Lock_policy)2>::__shared_ptr<std::allocator<AT::Tree::Node>>(std::_Sp_alloc_shared_tag<std::allocator<AT::Tree::Node> >) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x11C8C8: std::shared_ptr<AT::Tree::Node>::shared_ptr<std::allocator<AT::Tree::Node>>(std::_Sp_alloc_shared_tag<std::allocator<AT::Tree::Node> >) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x1190F5: std::shared_ptr<AT::Tree::Node> std::allocate_shared<AT::Tree::Node, std::allocator<AT::Tree::Node>>(std::allocator<AT::Tree::Node> const&) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x116904: std::shared_ptr<AT::Tree::Node> std::make_shared<AT::Tree::Node>() (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x115BD1: AT::Tree::Tree(unsigned long, ED::Graph const&) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x1149D1: perfect_matching(ED::Graph) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x113FC5: max_matching(ED::Graph, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926== 
+==926== 191,824 bytes in 11,988 blocks are indirectly lost in loss record 47 of 57
+==926==    at 0x483BE63: operator new(unsigned long) (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==926==    by 0x122F25: __gnu_cxx::new_allocator<std::shared_ptr<AT::Tree::Node> >::allocate(unsigned long, void const*) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x1205FC: std::allocator_traits<std::allocator<std::shared_ptr<AT::Tree::Node> > >::allocate(std::allocator<std::shared_ptr<AT::Tree::Node> >&, unsigned long) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x11D059: std::_Vector_base<std::shared_ptr<AT::Tree::Node>, std::allocator<std::shared_ptr<AT::Tree::Node> > >::_M_allocate(unsigned long) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x11A2B4: void std::vector<std::shared_ptr<AT::Tree::Node>, std::allocator<std::shared_ptr<AT::Tree::Node> > >::_M_realloc_insert<std::shared_ptr<AT::Tree::Node> const&>(__gnu_cxx::__normal_iterator<std::shared_ptr<AT::Tree::Node>*, std::vector<std::shared_ptr<AT::Tree::Node>, std::allocator<std::shared_ptr<AT::Tree::Node> > > >, std::shared_ptr<AT::Tree::Node> const&) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x117419: std::vector<std::shared_ptr<AT::Tree::Node>, std::allocator<std::shared_ptr<AT::Tree::Node> > >::push_back(std::shared_ptr<AT::Tree::Node> const&) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x111C64: AT::Tree::add_leaf(std::shared_ptr<AT::Tree::Node>, unsigned long) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x112041: AT::Tree::extend(unsigned long, unsigned long, std::vector<Edge, std::allocator<Edge> >&, Matching const&) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x114B6C: perfect_matching(ED::Graph) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x11444C: max_matching(ED::Graph, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x10EAC3: main (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926== 
+==926== 355,328 bytes in 226 blocks are indirectly lost in loss record 48 of 57
+==926==    at 0x483BE63: operator new(unsigned long) (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==926==    by 0x10DFFB: __gnu_cxx::new_allocator<unsigned long>::allocate(unsigned long, void const*) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x10DBEC: std::allocator_traits<std::allocator<unsigned long> >::allocate(std::allocator<unsigned long>&, unsigned long) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x10D5B9: std::_Vector_base<unsigned long, std::allocator<unsigned long> >::_M_allocate(unsigned long) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x10CC34: void std::vector<unsigned long, std::allocator<unsigned long> >::_M_realloc_insert<unsigned long const&>(__gnu_cxx::__normal_iterator<unsigned long*, std::vector<unsigned long, std::allocator<unsigned long> > >, unsigned long const&) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x10C655: std::vector<unsigned long, std::allocator<unsigned long> >::push_back(unsigned long const&) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x115DD1: AT::Tree::Tree(unsigned long, ED::Graph const&) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x1149D1: perfect_matching(ED::Graph) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x11444C: max_matching(ED::Graph, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x10EAC3: main (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926== 
+==926== 405,800 (64 direct, 405,736 indirect) bytes in 1 blocks are definitely lost in loss record 49 of 57
+==926==    at 0x483BE63: operator new(unsigned long) (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==926==    by 0x1249AB: __gnu_cxx::new_allocator<std::_Rb_tree_node<std::pair<unsigned long const, std::vector<unsigned long, std::allocator<unsigned long> > > > >::allocate(unsigned long, void const*) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x122FBB: std::allocator_traits<std::allocator<std::_Rb_tree_node<std::pair<unsigned long const, std::vector<unsigned long, std::allocator<unsigned long> > > > > >::allocate(std::allocator<std::_Rb_tree_node<std::pair<unsigned long const, std::vector<unsigned long, std::allocator<unsigned long> > > > >&, unsigned long) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x120750: std::_Rb_tree<unsigned long, std::pair<unsigned long const, std::vector<unsigned long, std::allocator<unsigned long> > >, std::_Select1st<std::pair<unsigned long const, std::vector<unsigned long, std::allocator<unsigned long> > > >, std::less<unsigned long>, std::allocator<std::pair<unsigned long const, std::vector<unsigned long, std::allocator<unsigned long> > > > >::_M_get_node() (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x11D1A4: std::_Rb_tree_node<std::pair<unsigned long const, std::vector<unsigned long, std::allocator<unsigned long> > > >* std::_Rb_tree<unsigned long, std::pair<unsigned long const, std::vector<unsigned long, std::allocator<unsigned long> > >, std::_Select1st<std::pair<unsigned long const, std::vector<unsigned long, std::allocator<unsigned long> > > >, std::less<unsigned long>, std::allocator<std::pair<unsigned long const, std::vector<unsigned long, std::allocator<unsigned long> > > > >::_M_create_node<std::piecewise_construct_t const&, std::tuple<unsigned long const&>, std::tuple<> >(std::piecewise_construct_t const&, std::tuple<unsigned long const&>&&, std::tuple<>&&) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x119A4E: std::_Rb_tree_iterator<std::pair<unsigned long const, std::vector<unsigned long, std::allocator<unsigned long> > > > std::_Rb_tree<unsigned long, std::pair<unsigned long const, std::vector<unsigned long, std::allocator<unsigned long> > >, std::_Select1st<std::pair<unsigned long const, std::vector<unsigned long, std::allocator<unsigned long> > > >, std::less<unsigned long>, std::allocator<std::pair<unsigned long const, std::vector<unsigned long, std::allocator<unsigned long> > > > >::_M_emplace_hint_unique<std::piecewise_construct_t const&, std::tuple<unsigned long const&>, std::tuple<> >(std::_Rb_tree_const_iterator<std::pair<unsigned long const, std::vector<unsigned long, std::allocator<unsigned long> > > >, std::piecewise_construct_t const&, std::tuple<unsigned long const&>&&, std::tuple<>&&) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x116DE9: std::map<unsigned long, std::vector<unsigned long, std::allocator<unsigned long> >, std::less<unsigned long>, std::allocator<std::pair<unsigned long const, std::vector<unsigned long, std::allocator<unsigned long> > > > >::operator[](unsigned long const&) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x115D27: AT::Tree::Tree(unsigned long, ED::Graph const&) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x1149D1: perfect_matching(ED::Graph) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x11444C: max_matching(ED::Graph, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x10EAC3: main (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926== 
+==926== 483,592 (688 direct, 482,904 indirect) bytes in 43 blocks are definitely lost in loss record 50 of 57
+==926==    at 0x483BE63: operator new(unsigned long) (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==926==    by 0x122F25: __gnu_cxx::new_allocator<std::shared_ptr<AT::Tree::Node> >::allocate(unsigned long, void const*) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x1205FC: std::allocator_traits<std::allocator<std::shared_ptr<AT::Tree::Node> > >::allocate(std::allocator<std::shared_ptr<AT::Tree::Node> >&, unsigned long) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x11D059: std::_Vector_base<std::shared_ptr<AT::Tree::Node>, std::allocator<std::shared_ptr<AT::Tree::Node> > >::_M_allocate(unsigned long) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x11A2B4: void std::vector<std::shared_ptr<AT::Tree::Node>, std::allocator<std::shared_ptr<AT::Tree::Node> > >::_M_realloc_insert<std::shared_ptr<AT::Tree::Node> const&>(__gnu_cxx::__normal_iterator<std::shared_ptr<AT::Tree::Node>*, std::vector<std::shared_ptr<AT::Tree::Node>, std::allocator<std::shared_ptr<AT::Tree::Node> > > >, std::shared_ptr<AT::Tree::Node> const&) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x117419: std::vector<std::shared_ptr<AT::Tree::Node>, std::allocator<std::shared_ptr<AT::Tree::Node> > >::push_back(std::shared_ptr<AT::Tree::Node> const&) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x111C64: AT::Tree::add_leaf(std::shared_ptr<AT::Tree::Node>, unsigned long) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x112041: AT::Tree::extend(unsigned long, unsigned long, std::vector<Edge, std::allocator<Edge> >&, Matching const&) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x114B6C: perfect_matching(ED::Graph) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x11444C: max_matching(ED::Graph, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x10EAC3: main (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926== 
+==926== 781,048 (11,376 direct, 769,672 indirect) bytes in 158 blocks are definitely lost in loss record 51 of 57
+==926==    at 0x483BE63: operator new(unsigned long) (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==926==    by 0x1261DF: __gnu_cxx::new_allocator<std::_Sp_counted_ptr_inplace<AT::Tree::Node, std::allocator<AT::Tree::Node>, (__gnu_cxx::_Lock_policy)2> >::allocate(unsigned long, void const*) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x1256F8: std::allocator_traits<std::allocator<std::_Sp_counted_ptr_inplace<AT::Tree::Node, std::allocator<AT::Tree::Node>, (__gnu_cxx::_Lock_policy)2> > >::allocate(std::allocator<std::_Sp_counted_ptr_inplace<AT::Tree::Node, std::allocator<AT::Tree::Node>, (__gnu_cxx::_Lock_policy)2> >&, unsigned long) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x1242D5: std::__allocated_ptr<std::allocator<std::_Sp_counted_ptr_inplace<AT::Tree::Node, std::allocator<AT::Tree::Node>, (__gnu_cxx::_Lock_policy)2> > > std::__allocate_guarded<std::allocator<std::_Sp_counted_ptr_inplace<AT::Tree::Node, std::allocator<AT::Tree::Node>, (__gnu_cxx::_Lock_policy)2> > >(std::allocator<std::_Sp_counted_ptr_inplace<AT::Tree::Node, std::allocator<AT::Tree::Node>, (__gnu_cxx::_Lock_policy)2> >&) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x1228FD: std::__shared_count<(__gnu_cxx::_Lock_policy)2>::__shared_count<AT::Tree::Node, std::allocator<AT::Tree::Node>>(AT::Tree::Node*&, std::_Sp_alloc_shared_tag<std::allocator<AT::Tree::Node> >) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x11FF97: std::__shared_ptr<AT::Tree::Node, (__gnu_cxx::_Lock_policy)2>::__shared_ptr<std::allocator<AT::Tree::Node>>(std::_Sp_alloc_shared_tag<std::allocator<AT::Tree::Node> >) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x11C8C8: std::shared_ptr<AT::Tree::Node>::shared_ptr<std::allocator<AT::Tree::Node>>(std::_Sp_alloc_shared_tag<std::allocator<AT::Tree::Node> >) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x1190F5: std::shared_ptr<AT::Tree::Node> std::allocate_shared<AT::Tree::Node, std::allocator<AT::Tree::Node>>(std::allocator<AT::Tree::Node> const&) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x116904: std::shared_ptr<AT::Tree::Node> std::make_shared<AT::Tree::Node>() (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x115BD1: AT::Tree::Tree(unsigned long, ED::Graph const&) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x1149D1: perfect_matching(ED::Graph) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x114167: max_matching(ED::Graph, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926== 
+==926== 924,720 bytes in 57,783 blocks are indirectly lost in loss record 52 of 57
+==926==    at 0x483BE63: operator new(unsigned long) (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==926==    by 0x122F25: __gnu_cxx::new_allocator<std::shared_ptr<AT::Tree::Node> >::allocate(unsigned long, void const*) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x1205FC: std::allocator_traits<std::allocator<std::shared_ptr<AT::Tree::Node> > >::allocate(std::allocator<std::shared_ptr<AT::Tree::Node> >&, unsigned long) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x11D059: std::_Vector_base<std::shared_ptr<AT::Tree::Node>, std::allocator<std::shared_ptr<AT::Tree::Node> > >::_M_allocate(unsigned long) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x11A2B4: void std::vector<std::shared_ptr<AT::Tree::Node>, std::allocator<std::shared_ptr<AT::Tree::Node> > >::_M_realloc_insert<std::shared_ptr<AT::Tree::Node> const&>(__gnu_cxx::__normal_iterator<std::shared_ptr<AT::Tree::Node>*, std::vector<std::shared_ptr<AT::Tree::Node>, std::allocator<std::shared_ptr<AT::Tree::Node> > > >, std::shared_ptr<AT::Tree::Node> const&) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x117419: std::vector<std::shared_ptr<AT::Tree::Node>, std::allocator<std::shared_ptr<AT::Tree::Node> > >::push_back(std::shared_ptr<AT::Tree::Node> const&) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x111C64: AT::Tree::add_leaf(std::shared_ptr<AT::Tree::Node>, unsigned long) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x112041: AT::Tree::extend(unsigned long, unsigned long, std::vector<Edge, std::allocator<Edge> >&, Matching const&) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x114B6C: perfect_matching(ED::Graph) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x114167: max_matching(ED::Graph, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x10EAC3: main (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926== 
+==926== 1,525,760 bytes in 1,253 blocks are indirectly lost in loss record 53 of 57
+==926==    at 0x483BE63: operator new(unsigned long) (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==926==    by 0x10DFFB: __gnu_cxx::new_allocator<unsigned long>::allocate(unsigned long, void const*) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x10DBEC: std::allocator_traits<std::allocator<unsigned long> >::allocate(std::allocator<unsigned long>&, unsigned long) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x10D5B9: std::_Vector_base<unsigned long, std::allocator<unsigned long> >::_M_allocate(unsigned long) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x10CC34: void std::vector<unsigned long, std::allocator<unsigned long> >::_M_realloc_insert<unsigned long const&>(__gnu_cxx::__normal_iterator<unsigned long*, std::vector<unsigned long, std::allocator<unsigned long> > >, unsigned long const&) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x10C655: std::vector<unsigned long, std::allocator<unsigned long> >::push_back(unsigned long const&) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x115DD1: AT::Tree::Tree(unsigned long, ED::Graph const&) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x1149D1: perfect_matching(ED::Graph) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x114167: max_matching(ED::Graph, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x10EAC3: main (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926== 
+==926== 1,736,632 (2,912 direct, 1,733,720 indirect) bytes in 182 blocks are definitely lost in loss record 54 of 57
+==926==    at 0x483BE63: operator new(unsigned long) (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==926==    by 0x122F25: __gnu_cxx::new_allocator<std::shared_ptr<AT::Tree::Node> >::allocate(unsigned long, void const*) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x1205FC: std::allocator_traits<std::allocator<std::shared_ptr<AT::Tree::Node> > >::allocate(std::allocator<std::shared_ptr<AT::Tree::Node> >&, unsigned long) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x11D059: std::_Vector_base<std::shared_ptr<AT::Tree::Node>, std::allocator<std::shared_ptr<AT::Tree::Node> > >::_M_allocate(unsigned long) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x11A2B4: void std::vector<std::shared_ptr<AT::Tree::Node>, std::allocator<std::shared_ptr<AT::Tree::Node> > >::_M_realloc_insert<std::shared_ptr<AT::Tree::Node> const&>(__gnu_cxx::__normal_iterator<std::shared_ptr<AT::Tree::Node>*, std::vector<std::shared_ptr<AT::Tree::Node>, std::allocator<std::shared_ptr<AT::Tree::Node> > > >, std::shared_ptr<AT::Tree::Node> const&) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x117419: std::vector<std::shared_ptr<AT::Tree::Node>, std::allocator<std::shared_ptr<AT::Tree::Node> > >::push_back(std::shared_ptr<AT::Tree::Node> const&) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x111C64: AT::Tree::add_leaf(std::shared_ptr<AT::Tree::Node>, unsigned long) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x112041: AT::Tree::extend(unsigned long, unsigned long, std::vector<Edge, std::allocator<Edge> >&, Matching const&) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x114B6C: perfect_matching(ED::Graph) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x114167: max_matching(ED::Graph, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x10EAC3: main (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926== 
+==926== 1,877,272 (384 direct, 1,876,888 indirect) bytes in 6 blocks are definitely lost in loss record 55 of 57
+==926==    at 0x483BE63: operator new(unsigned long) (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==926==    by 0x1249AB: __gnu_cxx::new_allocator<std::_Rb_tree_node<std::pair<unsigned long const, std::vector<unsigned long, std::allocator<unsigned long> > > > >::allocate(unsigned long, void const*) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x122FBB: std::allocator_traits<std::allocator<std::_Rb_tree_node<std::pair<unsigned long const, std::vector<unsigned long, std::allocator<unsigned long> > > > > >::allocate(std::allocator<std::_Rb_tree_node<std::pair<unsigned long const, std::vector<unsigned long, std::allocator<unsigned long> > > > >&, unsigned long) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x120750: std::_Rb_tree<unsigned long, std::pair<unsigned long const, std::vector<unsigned long, std::allocator<unsigned long> > >, std::_Select1st<std::pair<unsigned long const, std::vector<unsigned long, std::allocator<unsigned long> > > >, std::less<unsigned long>, std::allocator<std::pair<unsigned long const, std::vector<unsigned long, std::allocator<unsigned long> > > > >::_M_get_node() (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x11D1A4: std::_Rb_tree_node<std::pair<unsigned long const, std::vector<unsigned long, std::allocator<unsigned long> > > >* std::_Rb_tree<unsigned long, std::pair<unsigned long const, std::vector<unsigned long, std::allocator<unsigned long> > >, std::_Select1st<std::pair<unsigned long const, std::vector<unsigned long, std::allocator<unsigned long> > > >, std::less<unsigned long>, std::allocator<std::pair<unsigned long const, std::vector<unsigned long, std::allocator<unsigned long> > > > >::_M_create_node<std::piecewise_construct_t const&, std::tuple<unsigned long const&>, std::tuple<> >(std::piecewise_construct_t const&, std::tuple<unsigned long const&>&&, std::tuple<>&&) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x119A4E: std::_Rb_tree_iterator<std::pair<unsigned long const, std::vector<unsigned long, std::allocator<unsigned long> > > > std::_Rb_tree<unsigned long, std::pair<unsigned long const, std::vector<unsigned long, std::allocator<unsigned long> > >, std::_Select1st<std::pair<unsigned long const, std::vector<unsigned long, std::allocator<unsigned long> > > >, std::less<unsigned long>, std::allocator<std::pair<unsigned long const, std::vector<unsigned long, std::allocator<unsigned long> > > > >::_M_emplace_hint_unique<std::piecewise_construct_t const&, std::tuple<unsigned long const&>, std::tuple<> >(std::_Rb_tree_const_iterator<std::pair<unsigned long const, std::vector<unsigned long, std::allocator<unsigned long> > > >, std::piecewise_construct_t const&, std::tuple<unsigned long const&>&&, std::tuple<>&&) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x116DE9: std::map<unsigned long, std::vector<unsigned long, std::allocator<unsigned long> >, std::less<unsigned long>, std::allocator<std::pair<unsigned long const, std::vector<unsigned long, std::allocator<unsigned long> > > > >::operator[](unsigned long const&) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x115D27: AT::Tree::Tree(unsigned long, ED::Graph const&) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x1149D1: perfect_matching(ED::Graph) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x114167: max_matching(ED::Graph, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x10EAC3: main (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926== 
+==926== 2,922,984 (22,680 direct, 2,900,304 indirect) bytes in 315 blocks are definitely lost in loss record 56 of 57
+==926==    at 0x483BE63: operator new(unsigned long) (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==926==    by 0x1261DF: __gnu_cxx::new_allocator<std::_Sp_counted_ptr_inplace<AT::Tree::Node, std::allocator<AT::Tree::Node>, (__gnu_cxx::_Lock_policy)2> >::allocate(unsigned long, void const*) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x1256F8: std::allocator_traits<std::allocator<std::_Sp_counted_ptr_inplace<AT::Tree::Node, std::allocator<AT::Tree::Node>, (__gnu_cxx::_Lock_policy)2> > >::allocate(std::allocator<std::_Sp_counted_ptr_inplace<AT::Tree::Node, std::allocator<AT::Tree::Node>, (__gnu_cxx::_Lock_policy)2> >&, unsigned long) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x1242D5: std::__allocated_ptr<std::allocator<std::_Sp_counted_ptr_inplace<AT::Tree::Node, std::allocator<AT::Tree::Node>, (__gnu_cxx::_Lock_policy)2> > > std::__allocate_guarded<std::allocator<std::_Sp_counted_ptr_inplace<AT::Tree::Node, std::allocator<AT::Tree::Node>, (__gnu_cxx::_Lock_policy)2> > >(std::allocator<std::_Sp_counted_ptr_inplace<AT::Tree::Node, std::allocator<AT::Tree::Node>, (__gnu_cxx::_Lock_policy)2> >&) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x1228FD: std::__shared_count<(__gnu_cxx::_Lock_policy)2>::__shared_count<AT::Tree::Node, std::allocator<AT::Tree::Node>>(AT::Tree::Node*&, std::_Sp_alloc_shared_tag<std::allocator<AT::Tree::Node> >) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x11FF97: std::__shared_ptr<AT::Tree::Node, (__gnu_cxx::_Lock_policy)2>::__shared_ptr<std::allocator<AT::Tree::Node>>(std::_Sp_alloc_shared_tag<std::allocator<AT::Tree::Node> >) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x11C8C8: std::shared_ptr<AT::Tree::Node>::shared_ptr<std::allocator<AT::Tree::Node>>(std::_Sp_alloc_shared_tag<std::allocator<AT::Tree::Node> >) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x1190F5: std::shared_ptr<AT::Tree::Node> std::allocate_shared<AT::Tree::Node, std::allocator<AT::Tree::Node>>(std::allocator<AT::Tree::Node> const&) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x116904: std::shared_ptr<AT::Tree::Node> std::make_shared<AT::Tree::Node>() (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x111BDF: AT::Tree::add_leaf(std::shared_ptr<AT::Tree::Node>, unsigned long) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x112041: AT::Tree::extend(unsigned long, unsigned long, std::vector<Edge, std::allocator<Edge> >&, Matching const&) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x114B6C: perfect_matching(ED::Graph) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926== 
+==926== 5,107,608 bytes in 70,939 blocks are indirectly lost in loss record 57 of 57
+==926==    at 0x483BE63: operator new(unsigned long) (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==926==    by 0x1261DF: __gnu_cxx::new_allocator<std::_Sp_counted_ptr_inplace<AT::Tree::Node, std::allocator<AT::Tree::Node>, (__gnu_cxx::_Lock_policy)2> >::allocate(unsigned long, void const*) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x1256F8: std::allocator_traits<std::allocator<std::_Sp_counted_ptr_inplace<AT::Tree::Node, std::allocator<AT::Tree::Node>, (__gnu_cxx::_Lock_policy)2> > >::allocate(std::allocator<std::_Sp_counted_ptr_inplace<AT::Tree::Node, std::allocator<AT::Tree::Node>, (__gnu_cxx::_Lock_policy)2> >&, unsigned long) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x1242D5: std::__allocated_ptr<std::allocator<std::_Sp_counted_ptr_inplace<AT::Tree::Node, std::allocator<AT::Tree::Node>, (__gnu_cxx::_Lock_policy)2> > > std::__allocate_guarded<std::allocator<std::_Sp_counted_ptr_inplace<AT::Tree::Node, std::allocator<AT::Tree::Node>, (__gnu_cxx::_Lock_policy)2> > >(std::allocator<std::_Sp_counted_ptr_inplace<AT::Tree::Node, std::allocator<AT::Tree::Node>, (__gnu_cxx::_Lock_policy)2> >&) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x1228FD: std::__shared_count<(__gnu_cxx::_Lock_policy)2>::__shared_count<AT::Tree::Node, std::allocator<AT::Tree::Node>>(AT::Tree::Node*&, std::_Sp_alloc_shared_tag<std::allocator<AT::Tree::Node> >) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x11FF97: std::__shared_ptr<AT::Tree::Node, (__gnu_cxx::_Lock_policy)2>::__shared_ptr<std::allocator<AT::Tree::Node>>(std::_Sp_alloc_shared_tag<std::allocator<AT::Tree::Node> >) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x11C8C8: std::shared_ptr<AT::Tree::Node>::shared_ptr<std::allocator<AT::Tree::Node>>(std::_Sp_alloc_shared_tag<std::allocator<AT::Tree::Node> >) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x1190F5: std::shared_ptr<AT::Tree::Node> std::allocate_shared<AT::Tree::Node, std::allocator<AT::Tree::Node>>(std::allocator<AT::Tree::Node> const&) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x116904: std::shared_ptr<AT::Tree::Node> std::make_shared<AT::Tree::Node>() (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x111BDF: AT::Tree::add_leaf(std::shared_ptr<AT::Tree::Node>, unsigned long) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x112041: AT::Tree::extend(unsigned long, unsigned long, std::vector<Edge, std::allocator<Edge> >&, Matching const&) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926==    by 0x114B6C: perfect_matching(ED::Graph) (in /mnt/c/Users/Schaumburg/Desktop/COProg/combinatorialOptimization-noah/ex1/matching.out)
+==926== 
+==926== LEAK SUMMARY:
+==926==    definitely lost: 43,248 bytes in 775 blocks
+==926==    indirectly lost: 8,467,312 bytes in 147,464 blocks
+==926==      possibly lost: 0 bytes in 0 blocks
+==926==    still reachable: 122,880 bytes in 6 blocks
+==926==         suppressed: 0 bytes in 0 blocks
+==926== 
+==926== ERROR SUMMARY: 9 errors from 9 contexts (suppressed: 0 from 0)

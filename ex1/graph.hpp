@@ -125,6 +125,7 @@ public:
       @warning Does not check that the edge does not already exist, so this class can be used to model non-simple graphs.
    **/
    void add_edge(NodeId node1_id, NodeId node2_id);
+   void add_nodes(size_t n);
 
    /**
      @brief Prints the graph to the given ostream in DIMACS format.

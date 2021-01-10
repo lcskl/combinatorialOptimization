@@ -55,7 +55,7 @@ Graph Graph::build_graph(const std::string & filename)
    {
       throw std::runtime_error("Unexpected format of input file.");
    }
-   
+
    Graph graph(num_nodes);
    while (std::getline(ifs, line))
    {
@@ -99,6 +99,14 @@ void Graph::add_edge(NodeId node1_id, NodeId node2_id)
    impl(node2_id, node1_id);
 
    ++_num_edges;
+}
+
+//TODO
+void Graph::add_nodes(size_t n){
+    ED::Node dummy;
+    for(size_t i = 0; i < n; ++i){
+        _nodes.push_back(dummy);
+    }
 }
 
 std::ostream & operator<<(std::ostream & str, Graph const & graph)
