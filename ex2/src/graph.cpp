@@ -191,4 +191,25 @@ std::vector<MMC::NodeId> Graph::odd_v_minus() const{
    return odd_deg_negative;
 }
 
+std::set<MMC::EdgeId> Graph::e_minus() const{
+   std::set<MMC::EdgeId> negative_edges;
+   for (auto node : _nodes){
+      for(auto out_hf_id : node.outgoing_halfedges()){
+         if(halfedge_weight(out_hf_id) < 0){
+            negative_edges.insert(out_hf_id/2);
+         }
+      }
+   }
+   return negative_edges;
+}
+
+void Graph::set_edge_weight(EdgeId edge_id,EdgeWeight weight){
+   if (edge_id >= num_edges())
+   {
+      throw std::runtime_error("MMC::Updating non-existent edge!");
+   }
+
+   _edge_weights[edge_id] = weight;
+}
+
 } // namespace MMC
