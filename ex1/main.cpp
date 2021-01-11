@@ -1,5 +1,6 @@
 #include <iostream>
 #include <cstdlib>
+#include <chrono>
 
 #include "graph.hpp"
 #include "match_algo.hpp"
@@ -15,14 +16,11 @@ int main(int argc, char** argv)
    }
 
    ED::Graph graph = ED::Graph::build_graph(argv[1]);
-   Matching M = perfect_matching(graph);
-   std::cout<< "\n\nVeredict:\n";
-   if(M._perfect == false)
-      std::cout << "No Perfect Matching Found!\n";
-   else{ 
-      std::cout << "Perfect Matching:\n";
-      M.print();
-   }
-   //std::cout << graph;
+
+   Matching M = max_matching(graph, argv[1]);
+
+   M.print(graph.num_nodes());
+   //std::cout << "Cardinality " << M.cardinality() << std::endl;
+
    return EXIT_SUCCESS;
 }
