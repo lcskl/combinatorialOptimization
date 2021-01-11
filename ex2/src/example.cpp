@@ -31,26 +31,7 @@ int main(int argc, char** argv)
    }
    Graph const graph = Graph::read_dimacs(input_file);
 
-   //We are currently checking this to make sure that the graph we call the minimum weight perfect matching
-   //solver on possesses a perfect matching.
-   //As you won't call the solver on the input graph directly,
-   // but on the disjoint union of complete graphs on the sets of
-   //odd(E^-) vertices in the connected components of G, you should remove this check.
-   if (graph.num_edges() == graph.num_nodes() * (graph.num_nodes() - 1))
-   {
-      std::cout << "Expected input graph to be complete graph!" << std::endl;
-      return EXIT_FAILURE;
-   }
-   else if (graph.num_nodes() % 2 != 0)
-   {
-      std::cout << "Expected input graph to have even number of vertices!" << std::endl;
-      return EXIT_FAILURE;
-   }
-   else
-   {
-      minimum_weight_empty_join(graph);
+   minimum_weight_empty_join(graph);
 
-      return EXIT_SUCCESS; 
-   }
 }
 

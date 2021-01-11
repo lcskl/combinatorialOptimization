@@ -40,6 +40,8 @@
  */
 #include <vector>
 
+#include <set>
+
 /**
  * Namespaces can be used in order to make sure different modules,
  * possibly implemented by different people don't have classes/functions/...
@@ -169,6 +171,12 @@ public:
 
    /** @return List of vertices with odd degree w.r.t. negative weighted edges */
    std::vector<MMC::NodeId> odd_v_minus() const;
+
+   /** @return Set of edges with negative weight */
+   std::set<MMC::NodeId> e_minus() const;
+
+   /** @return Update the weight of an edge (both halfedges) given its id */
+   void set_edge_weight(EdgeId edge_id,EdgeWeight weight);
 
    /**
       @brief Adds the edge <tt> {node1_id, node2_id} </tt> with specified weight.

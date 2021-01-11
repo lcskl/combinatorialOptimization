@@ -11,12 +11,12 @@
 using namespace MMC;
 
 /**
- * [INCOMPLETED]
  * Calculates the minimum weight empty-join of a graph (minimum weight eulerian subgraph)
  *
  * @param G Original graph, whose minimum 0-join is wanted
+ * @return Set of Id's whose correspondent edges are on the 0-join
  */
-void minimum_weight_empty_join(const Graph & G);
+std::set<EdgeId> minimum_weight_empty_join(const Graph & G);
 
 /**
  * Given a subset of vertices, it creates new 'Graph' objects for each connected components spanned by this subset.

@@ -34,7 +34,7 @@ std::pair<std::vector<MMC::EdgeWeight>,std::vector<MMC::HalfEdgeId>> dijkstra(co
  * @param G Graph whose min. weight paths are to be calculated
  * @return Pair of vectors: (Min weight values matrix in array form -- Matrix (in array form) of last visited vertex in a min path -> backtracking)
  */
-std::pair<std::vector<MMC::EdgeWeight>,std::vector<MMC::NodeId>> floyd_warshall(const MMC::Graph & G);
+std::pair<std::vector<MMC::EdgeWeight>,std::vector<MMC::HalfEdgeId>> floyd_warshall(const MMC::Graph & G);
 
 /**
  * Simply returns a copy of the graph with absolute valued weights
