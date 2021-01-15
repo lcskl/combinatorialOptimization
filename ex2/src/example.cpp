@@ -85,9 +85,9 @@ std::vector<EdgeId> dfs_cycle(const Graph & g, NodeId root)
             final_cycle.push_back(g.edge_weight(edge_id/2));    //here we saved the edge ids in the original graph
             //std::cout << "final adding " << edge_id << std::endl;
         }
-        if(g.halfedge(edge_id).target() == peak)  //Fehler hier?? TAKE HALFEDGES FOR C, edge_id*2 could be wrong!
-            in_cycle = true;                        // oder counter, wie oft ich bei peak war, dann if(g.halfedge(edge_id*2).target() == peak or g.halfedge(edge_id*2+1).target() == peak)
-    }                                               // 3. Mal: 1. reingehen, 2. rausgehen aus peak, 3. wieder rein !!
+        if(g.halfedge(edge_id).target() == peak)  
+            in_cycle = true;                        
+    }                                               
 
     return final_cycle;
 }
