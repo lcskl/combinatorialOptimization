@@ -1,0 +1,2 @@
+the files join and util (cpp and hpp) were not changed. In the graph file I only changed the weights to be of type double.
+Everything I've done is in the example.cpp (we will change this ater, but it could be helpful when optimizing the code).
