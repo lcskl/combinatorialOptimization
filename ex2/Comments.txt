@@ -1,0 +1,18 @@
+Files:
+    utils.hpp / utils.cpp:
+        Functions that do not directly relate to either the T-join or the Minimum Mean Weight Cycle algo
+
+        - dfs: given a visited array, it stamps every reachable vertex with a given value using a depth first search
+
+    join.hpp / join.cpp:
+        Methods for calculating the minimum weight empty join
+
+        - minimum_weight_empty_join: implementing the minimum weight T-join for T = empty
+        - connected_components: Given a subset of vertices T, it returns a list of 'Graph' objects with the connected components of G(T) (graph spanned by those vertices). 
+    
+    graph.hpp / graph.cpp 
+        Mods:
+
+        Added:
+        - odd_v_minus: returns list of vertices with odd degree w.r.t negative edges.
+        
