@@ -6,6 +6,7 @@
 #include <set>
 #include <map>
 #include <cmath>
+#include <chrono>
 
 std::vector<std::pair<NodeId,NodeId>> perfect_matching(const Graph & graph){
     PerfectMatching solver{
@@ -84,8 +85,17 @@ std::set<EdgeId> minimum_weight_empty_join(const Graph & G){
     //It computes a minimum empty join with real valued edge weights
     //According to Theorem 52, it suffices to calculate a V^- Join in G_d (weight function d(e) := |c(e)| )
 
-    auto G_d = copy_abs_weight(G); //Copy of the original graph with with weight function d(e) := |c(e)| 
+    auto G_d = copy_abs_weight(G); //Copy of the original graph with with weight function d(e) := |c(e)|
+
+    
+
+    auto t1 = std::chrono::high_resolution_clock::now();
     auto ret_closure = metric_closure(G_d); //Complete Graph with w({x,y}) = min_weight(x,y) in G_d 
+    auto t2 = std::chrono::high_resolution_clock::now();
+
+    auto duration = std::chrono::duration_cast<std::chrono::microseconds>( t2 - t1 ).count();
+
+    std::cout << duration << std::endl;
 
     auto G_closure = ret_closure.first; //List of distances
     auto next = ret_closure.second; //Next half edge in a min path

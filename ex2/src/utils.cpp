@@ -116,3 +116,11 @@ Graph copy_abs_weight(const Graph & G){
 
     return G_d;
 }
+
+void reduce_weights(Graph & g, double value)
+{
+    for(size_t i = 0; i < g.num_edges(); ++i)
+    {
+        g.set_edge_weight(i, g.edge_weight(i)-value);
+    }
+}

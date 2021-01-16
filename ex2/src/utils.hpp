@@ -44,4 +44,6 @@ std::pair<std::vector<MMC::EdgeWeight>,std::vector<MMC::HalfEdgeId>> floyd_warsh
  */
 MMC::Graph copy_abs_weight(const MMC::Graph & G);
 
+void reduce_weights(MMC::Graph & g, double value);
+
 #endif
