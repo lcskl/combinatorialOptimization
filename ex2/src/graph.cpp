@@ -181,7 +181,7 @@ std::vector<MMC::NodeId> Graph::odd_v_minus() const{
    for(auto node : _nodes){
       neg_edges=0;
       for(auto out : node.outgoing_halfedges()){
-         neg_edges += (halfedge_weight(out) < 0) ? 1 : 0;
+         neg_edges += (halfedge_weight(out) < 0.0) ? 1 : 0;
       }
       if(neg_edges % 2){
          odd_deg_negative.push_back(node_id);
@@ -195,7 +195,7 @@ std::set<MMC::EdgeId> Graph::e_minus() const{
    std::set<MMC::EdgeId> negative_edges;
    for (auto node : _nodes){
       for(auto out_hf_id : node.outgoing_halfedges()){
-         if(halfedge_weight(out_hf_id) < 0){
+         if(halfedge_weight(out_hf_id) < 0.0){
             negative_edges.insert(out_hf_id/2);
          }
       }

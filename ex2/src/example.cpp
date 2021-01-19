@@ -52,8 +52,9 @@ int main(int argc, char** argv)
        //value += initialWeights[C[i]];
        output_file << "e " << graph.halfedge(2*C[i]).target()+1 << " " << graph.halfedge(2*C[i]+1).target()+1 << " " << initialWeights[C[i]] << std::endl;
    }
-
-   //std::cout << "ALGO: " << value/(double)C.size() << std::endl;
-   //std::cout << "BF: " << r.second << std::endl;
+   // std::ofstream val_file("validation.txt", std::ios::out | std::ios::trunc);
+   // val_file << value/(double)C.size() << std::endl;
+   // val_file << r.second << std::endl;
+   // val_file.close();
 }
 

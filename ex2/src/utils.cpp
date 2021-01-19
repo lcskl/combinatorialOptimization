@@ -111,7 +111,7 @@ Graph copy_abs_weight(const Graph & G){
 
     for(EdgeId id = 0; id < G_d.num_edges(); id++){
         auto old_weight = G_d.edge_weight(id);
-        G_d.set_edge_weight(id,abs(old_weight));
+        G_d.set_edge_weight(id,fabs(old_weight));
     }
 
     return G_d;

@@ -87,7 +87,7 @@ std::set<EdgeId> minimum_weight_empty_join(const Graph & G){
 
     auto G_d = copy_abs_weight(G); //Copy of the original graph with with weight function d(e) := |c(e)|
 
-    
+    //std::cout << G_d << std::endl;
 
     auto t1 = std::chrono::high_resolution_clock::now();
     auto ret_closure = metric_closure(G_d); //Complete Graph with w({x,y}) = min_weight(x,y) in G_d 
@@ -101,6 +101,9 @@ std::set<EdgeId> minimum_weight_empty_join(const Graph & G){
     auto next = ret_closure.second; //Next half edge in a min path
 
     auto T = G.odd_v_minus(); // Get V^-
+    // for(auto x : T)
+    //     std::cout << x+1 << " ";
+    // std::cout << std::endl;
     auto conn_comps = connected_components(G_closure,T); //Components spanned by V^- 
 
     //std::cout << " Components of G(T):\n";
